@@ -69,55 +69,82 @@
         <div class="col-md-8">
             <div class="profile-card p-4">
                 <h1 class="text-center mb-4">Személyes adatok</h1>
+                <form action="" method="post">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <h5>Vezetéknév:</h5>
-                        <p><?php echo $_SESSION["vezeteknev"] ?></p>
+                        <input type="text" class="form-control inp" id="vezeteknev" name="vezeteknev" placeholder="<?php echo $_SESSION["vezeteknev"] ?>" disabled>
+                        
                     </div>
                     <div class="col-md-6 mb-3">
                         <h5>Keresztnév:</h5>
-                        <p><?php echo $_SESSION["keresztnev"] ?></p>
+                        <input type="text" class="form-control inp" id="keresztnev" name="keresztnev" placeholder="<?php echo $_SESSION["keresztnev"] ?>" disabled>
+                        
                     </div>
                     <div class="col-md-6 mb-3">
                         <h5>Email:</h5>
-                        <p><?php echo $_SESSION["email"] ?></p>
+                        <input type="text" class="form-control inp" id="email" name="email" placeholder="<?php echo $_SESSION["email"] ?>" disabled>
+                        
                     </div>
                     <div class="col-md-6 mb-3">
                         <h5>Telefonszám:</h5>
-                        <p><?php echo $_SESSION["telszam"] ?></p>
+                        <input type="text" class="form-control inp" id="telszam" name="telszam" placeholder="<?php echo $_SESSION["telszam"] ?>" disabled>
+                        
                     </div>
                     <div class="col-md-6 mb-3">
                         <h5>Születési idő:</h5>
-                        <p><?php echo $_SESSION["szul_ido"] ?></p>
+                        <input type="text" class="form-control inp" id="szul_ido" name="szul_ido" placeholder="<?php echo $_SESSION["szul_ido"] ?>" disabled>
+                        
                     </div>
                     <div class="col-md-6 mb-3">
                         <h5>Születési hely:</h5>
-                        <p><?php echo $_SESSION["szul_hely"] ?></p>
+                        <input type="text" class="form-control inp" id="szul_hely" name="szul_hely" placeholder="<?php echo $_SESSION["szul_hely"] ?>" disabled>
+                        
                     </div>
                     <div class="col-md-6 mb-3">
                         <h5>Nem:</h5>
-                        <p><?php echo $_SESSION["nem"] ?></p>
+                        <input type="text" class="form-control inp" id="nem" name="nem" placeholder="<?php echo $_SESSION["nem"] ?>" disabled>
+                        
                     </div>
                     <div class="col-md-6 mb-3">
                         <h5>Lakcím:</h5>
-                        <p><?php echo $_SESSION["lakcim"] ?></p>
+                        <input type="text" class="form-control inp" id="lakcim" name="lakcim" placeholder="<?php echo $_SESSION["lakcim"] ?>" disabled>
+                        
                     </div>
                     <div class="col-md-6 mb-3">
                         <h5>Tajszám:</h5>
-                        <p><?php echo $_SESSION["tajszam"] ?></p>
+                        <input type="text" class="form-control inp" id="tajszam" name="tajszam" placeholder="<?php echo $_SESSION["tajszam"] ?>" disabled>
+                        
                     </div>
                     <div class="col-md-6 mb-3">
                         <h5>Anyja neve:</h5>
-                        <p><?php echo $_SESSION["a_neve"] ?></p>
+                        <input type="text" class="form-control inp" id="a_neve" name="a_neve" placeholder="<?php echo $_SESSION["a_neve"] ?>" disabled>
+                        
                     </div>
                     <div class="col-md-6 mb-3">
-                    <button type="submit"  class="btn btn-primary w-100 mt-4" id="szerkesztes">Profil adatainak szerkesztése</button>
+                    <button type="button"  class="btn btn-primary w-100 mt-4" id="szerkesztes" onclick="szerkesztess()">Profil adatainak szerkesztése</button>
+
+                    
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                    <button type="submit" class="btn btn-primary w-100 mt-4" id="mentes" hidden >Mentés</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<script> function szerkesztess() {
+    let mentes=document.getElementById('mentes');
+    mentes.hidden=false;
+    document.querySelectorAll('.inp').forEach(el => el.removeAttribute('disabled'));
+} 
+
+
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
