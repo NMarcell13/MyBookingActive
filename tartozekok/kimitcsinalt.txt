@@ -1,0 +1,3 @@
+Nagy Dávid: Feltöltötte az adatbázist adatokkal, tesztelési célból meg hogy látható legyen a dizájn teljessége,időpontfoglaló rendszer kidolgozása(folyamatban)
+Algács Tamás András: Megcsinálta a footert és szövegeket írt a weboldalhoz(nem a felhasználókhoz, az dávid feladata volt), például footer szöveg és stb, időpontfoglaló rendszer kidolgozása(folyamatban)
+Nágel Marcell: Backend további fejlesztése, hibajavítása és keresése. ,Github-ra való feltöltés és webtárhely szolgáltatók megvizsgálása melyik lenne a legjobb.

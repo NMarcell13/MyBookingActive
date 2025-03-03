@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nemtudom</title>
+</head>
+<body>
+    <form method="POST" action="index.php">
+        <h1>Adja meg az adatait</h1>
+        <label for="vnev">Vezeték név:</label><br>
+        <input type="text" id="vnev" name="vnev"><br>
+        <label for="knev">Kereszt név:</label><br>
+        <input type="text" id="knev" name="knev"><br>
+        <label for="ev">Mikor született:</label><br>
+        <input type="date" id="ev" name="ev"><br>
+        <label for="nem">Milyen nemhez sorolja magát:</label><br>
+        <input type="radio" id="ferfi" name="nem" value="ferfi">
+        <label for="ferfi">Férfi</label><br>
+        <input type="radio" id="no" name="nem" value="no">
+        <label for="no">Nő</label><br>
+        <input type="radio" id="egyeb" name="nem" value="egyeb">
+        <label for="egyeb">Egyéb</label><br>
+        <input type="submit" value="Feltöltés">
+    </form>
+</body>
+</html>

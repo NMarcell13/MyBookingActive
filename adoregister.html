@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="shortcut icon" href="kepek/MyBookinglco.ico" type="image/x-icon">
+    <title>Regisztráció - MyBooking</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        .register-card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        .logo-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #e6f3ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 1rem;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="register-card">
+                    <div class="logo-circle">
+                        <img src="kepek/MyBooking.png" alt="MyBooking Logo" height="60" />
+                    </div>
+                    <h2 class="text-center mb-4"> Időpont adó<br>Regisztráció</h2>
+                    <form method="POST" action="php/adoregister.php" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="username" class="form-label">Felhasználónév:</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="password" class="form-label">Jelszó:</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email cím:</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="telszam" class="form-label">Telefonszám:</label>
+                                <input type="tel" placeholder="06301234567" class="form-control" id="telszam" name="telszam" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="vnev" class="form-label">Vezetéknév:</label>
+                                <input type="text" class="form-control" id="vnev" name="vnev" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="knev" class="form-label">Keresztnév:</label>
+                                <input type="text" class="form-control" id="knev" name="knev" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="szak" class="form-label">Szekció:</label>
+                                <select name="szak" id="szak" class="form-control" required>
+                                    <option value="fodrasz">Fodrász</option>
+                                    <option value="orvos">Orvos</option>
+                                    <option value="buli">Buli</option>
+                                    <option value="tanar">Tanár</option>
+                                    <option value="utazas">Utazási asszisztens</option>
+                                    <option value="tech">Tech</option>
+                                    <option value="sport">Sport szakértő</option>
+                                    <option value="auto">Autószerelő</option>
+                                  </select>
+                                
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="kepfeltoltes" class="form-label">Profilkép feltöltése:</label>
+                                <input type="file" id="kepfeltoltes" name="kepfeltoltes" accept="image/*" >
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="hely" class="form-label">Helyszín:</label>
+                                <input type="text" id="hely" name="hely" required  class="form-control" placeholder="Pl.: 4700 Mátészalkai Bajcsy Zsilinszki utca 12.">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="leiras" class="form-label">Leírás:</label>
+                                <input type="text" id="leiras" name="leiras" required  class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Regisztráció</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a href="adologin.html" class="text-decoration-none">Már van fiókod? Kattints ide a bejelentkezéshez.</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</body>
+</html>
+

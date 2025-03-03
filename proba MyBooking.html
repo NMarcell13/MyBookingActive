@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dologk a wboldalba</title>
+    <style>
+
+
+
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+            border-radius: 4px;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar .user {
+            font-size: 18px;
+        }
+
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #AAABB8;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            width: 100%;
+            justify-content: center;
+            padding-top: 50px; /* Felső padding a címkék miatt */
+        }
+        .box {
+            width: 23%; 
+            height: 190px; 
+            margin: 40px 10px 10px 10px; /* Nagyobb felső margó a címkék miatt */
+            background-color: #54607D;
+            border: 1px solid #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: relative; /* A doboz relatív pozícióban legyen */
+        }
+        .box:hover {
+            background-color: #427fda;
+        }
+        .box img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        /* Címke stílusa */
+        .box-label {
+            position: absolute; 
+            top: -30px; /* A doboz fölé kerüljön */
+            left: 50%; /* Középre igazítás */
+            transform: translateX(-50%); /* Pontosan középre */
+            background-color: rgba(0, 0, 0, 0.7); /* Átlátszó fekete háttér */
+            color: white; /* Fehér szöveg */
+            padding: 5px 10px; /* Belső térköz */
+            border-radius: 5px; /* Lekerekített sarkok */
+            font-size: 16px; /* Betűméret */
+            white-space: nowrap; /* Szöveg ne törjön */
+        }
+
+        /* Hírdetés stílusa */
+        .ad-container {
+            width: 80%;
+            max-width: 600px;
+            height: 320px;
+            margin-top: 20px;
+            background-color: #ffffff;
+            border: 2px solid #000000;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .ad-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .ad-container img.active {
+            opacity: 1;
+        }
+
+        /* Animáció */
+        @keyframes fade {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+        .ad-container img:nth-child(1) {
+            animation: fade 8s infinite;
+        }
+        .ad-container img:nth-child(2) {
+            animation: fade 8s infinite 4s; 
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+    <div class="navbar">
+        <a href="#" class="logo">Logó</a>
+        <div>
+            <a href="#">Rólunk</a>
+            <a href="#">Felhasználónév</a>
+        </div>
+    </div>
+
+<div class="container">
+    <!-- Első sor -->
+    <div class="box" onclick="window.location.href='oldal1.html';">
+        <div class="box-label">Fodrászat</div>
+        <img src="fodraszat.jpg" alt="Kép 1">
+    </div>
+    <div class="box" onclick="window.location.href='oldal2.html';">
+        <div class="box-label">Orvosi rendelő</div>
+        <img src="orvosi.jpg" alt="Kép 2">
+    </div>
+    <div class="box" onclick="window.location.href='oldal3.html';">
+        <div class="box-label">Buli</div>
+        <img src="buli.jpg" alt="Kép 3">
+    </div>
+    <div class="box" onclick="window.location.href='oldal4.html';">
+        <div class="box-label">Tanulás</div>
+        <img src="tanulas.jpg" alt="Kép 4">
+    </div>
+
+    <!-- Második sor -->
+    <div class="box" onclick="window.location.href='oldal5.html';">
+        <div class="box-label">Utazás</div>
+        <img src="utazas.jpg" alt="Kép 5">
+    </div>
+    <div class="box" onclick="window.location.href='oldal6.html';">
+        <div class="box-label">Technológia</div>
+        <img src="tech.jpg" alt="Kép 6">
+    </div>
+    <div class="box" onclick="window.location.href='oldal7.html';">
+        <div class="box-label">Sport</div>
+        <img src="sport.jpg" alt="Kép 7">
+    </div>
+    <div class="box" onclick="window.location.href='oldal8.html';">
+        <div class="box-label">Autószerelő</div>
+        <img src="autoszerlo.jpg" alt="Kép 8">
+    </div>
+</div>
+
+<!-- Hírdetés -->
+<div class="ad-container" onclick="window.location.href='https://mateszalka-gepeszeti.www.intezmeny.edir.hu/.hu';">
+    <img src="gepesz1.png" alt="Hírdetés 1" class="active">
+    <img src="gepesz3.jpg" alt="Hírdetés 2">
+</div>
+
+</body>
+</html>
