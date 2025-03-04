@@ -78,7 +78,7 @@
             <div class="col-md-8">
                 <div class="profile-card p-4">
                     <h1 class="text-center mb-4">Személyes adatok</h1>
-                    <form action="update.php" method="post">
+                    <form action="php/update.php" method="post">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <h5>Vezetéknév:</h5>
@@ -94,20 +94,20 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <h5>Email:</h5>
-                                <input type="text" class="form-control inp" id="email" name="email"
+                                <input type="email" class="form-control inp" id="email" name="email"
                                     placeholder="<?php echo $_SESSION["email"] ?>" disabled>
 
                             </div>
                             <div class="col-md-6 mb-3">
                                 <h5>Telefonszám:</h5>
-                                <input type="text" class="form-control inp" id="telszam" name="telszam"
+                                <input type="tel" class="form-control inp" id="telszam" name="telszam"
                                     placeholder="<?php echo $_SESSION["telszam"] ?>" disabled>
 
                             </div>
                             <div class="col-md-6 mb-3">
                                 <h5>Születési idő:</h5>
                                 <input type="text" class="form-control inp" id="szul_ido" name="szul_ido"
-                                    placeholder="<?php echo $_SESSION["szul_ido"] ?>" disabled>
+                                    placeholder="<?php echo $_SESSION["szul_ido"] ?>" disabled onfocus="(this.type='date')">
 
                             </div>
                             <div class="col-md-6 mb-3">
@@ -118,8 +118,14 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <h5>Nem:</h5>
-                                <input type="text" class="form-control inp" id="nem" name="nem"
-                                    placeholder="<?php echo $_SESSION["nem"] ?>" disabled>
+                                <select name="nem" id="nem" class="form-control inp" disabled>
+                                    <option value="" disabled selected><?php echo $_SESSION["nem"] ?></option>
+                                    <option value="Férfi">Férfi</option>
+                                    <option value="Nő">Nő</option>
+                                    <option value="Egyéb">Egyéb</option>
+                                    
+                                </select>
+                                
 
                             </div>
                             <div class="col-md-6 mb-3">

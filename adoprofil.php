@@ -78,37 +78,78 @@
             <div class="col-md-8">
                 <div class="profile-card p-4">
                     <h1 class="text-center mb-4">Személyes adatok</h1>
+                    <form action="php/Aupdate.php" method="post">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <h5>Vezetéknév:</h5>
-                            <p><?php echo $_SESSION["vezeteknev"] ?></p>
+                            <input type="text" class="form-control inp" id="vezeteknev" name="vezeteknev"
+                                    placeholder="<?php echo $_SESSION["vezeteknev"] ?>" disabled>
+                            
                         </div>
                         <div class="col-md-6 mb-3">
                             <h5>Keresztnév:</h5>
-                            <p><?php echo $_SESSION["keresztnev"] ?></p>
+                            <input type="text" class="form-control inp" id="keresztnev" name="keresztnev"
+                                    placeholder="<?php echo $_SESSION["keresztnev"] ?>" disabled>
+                           
                         </div>
                         <div class="col-md-6 mb-3">
                             <h5>Email:</h5>
-                            <p><?php echo $_SESSION["email"] ?></p>
+                            <input type="text" class="form-control inp" id="email" name="email"
+                                    placeholder="<?php echo $_SESSION["email"] ?>" disabled>
+                            
                         </div>
                         <div class="col-md-6 mb-3">
                             <h5>Telefonszám:</h5>
-                            <p><?php echo $_SESSION["telszam"] ?></p>
+                            <input type="tel" class="form-control inp" id="telszam" name="telszam"
+                                    placeholder="<?php echo $_SESSION["telszam"] ?>" disabled>
+                            
                         </div>
                         <div class="col-md-6 mb-3">
                             <h5>Szakterület:</h5>
-                            <p><?php echo $_SESSION["szak"] ?></p>
+                            <select name="szak" id="szak" class="form-control inp" disabled>
+                                    <option value="" disabled selected><?php echo $_SESSION["szak"] ?></option>
+                                    <option value="fodrasz">Fodrász</option>
+                                    <option value="orvos">Orvos</option>
+                                    <option value="buli">Buli</option>
+                                    <option value="tanar">Tanár</option>
+                                    <option value="utazas">Utazási asszisztens</option>
+                                    <option value="tech">Tech</option>
+                                    <option value="sport">Sport szakértő</option>
+                                    <option value="auto">Autószerelő</option>
+                                </select>
+                            
                         </div>
                         <div class="col-md-6 mb-3">
-                            <button type="submit" class="btn btn-primary w-100 mt-4" id="szerkesztes">Profil adatainak
-                                szerkesztése</button>
+                        <h5>Profilkép:</h5>
+                        
+                        <input type="file" id="kepfeltoltes" class="inp" name="kepfeltoltes" accept="image/*" disabled>
+                            
                         </div>
 
+                        <div class="col-md-6 mb-3">
+                            <button type="button" class="btn btn-primary w-100 mt-4" id="szerkesztes"  onclick="szerkesztess()">Profil adatainak
+                                szerkesztése</button>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                                <button type="submit" class="btn btn-primary w-100 mt-4" id="mentes"
+                                    hidden>Mentés</button>
+                            </div>
+
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <script> function szerkesztess() {
+            let mentes = document.getElementById('mentes');
+            mentes.hidden = false;
+            document.querySelectorAll('.inp').forEach(el => el.removeAttribute('disabled'));
+        }
+
+
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

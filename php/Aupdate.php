@@ -22,7 +22,7 @@ if ($conn->connect_error) {
 }
 
 
-$checkUser = $conn->prepare("SELECT * FROM ugyfelek WHERE felhasznalonev = ?");
+$checkUser = $conn->prepare("SELECT * FROM adok WHERE felhasznalonev = ?");
 $checkUser->bind_param("s", $loggedUsername);
 $checkUser->execute();
 $result = $checkUser->get_result();
@@ -43,12 +43,51 @@ $vezeteknev = !empty($_POST["vezeteknev"]) ? $_POST["vezeteknev"] : $userData["v
 $keresztnev = !empty($_POST["keresztnev"]) ? $_POST["keresztnev"] : $userData["keresztnev"];
 $email = !empty($_POST["email"]) ? $_POST["email"] : $userData["email"];
 $telszam = !empty($_POST["telszam"]) ? $_POST["telszam"] : $userData["telszam"];
-$szul_ido = !empty($_POST["szul_ido"]) ? $_POST["szul_ido"] : $userData["szul_ido"];
-$szul_hely = !empty($_POST["szul_hely"]) ? $_POST["szul_hely"] : $userData["szul_hely"];
-$nem = !empty($_POST["nem"]) ? $_POST["nem"] : $userData["nem"];
-$lakcim = !empty($_POST["lakcim"]) ? $_POST["lakcim"] : $userData["lakcim"];
-$tajszam = !empty($_POST["tajszam"]) ? $_POST["tajszam"] : $userData["tajszam"];
-$a_neve = !empty($_POST["a_neve"]) ? $_POST["a_neve"] : $userData["a_neve"];
+$szak = !empty($_POST["szak"]) ? $_POST["szak"] : $userData["szak"];
+$kepfeltoltes =!empty($_POST["kepfeltoltes"]) ? $_POST["kepfeltoltes"] : $userData["kepfeltoltes"];
+
+
+$cel_fajl = "";
+
+if (isset($_FILES["kepfeltoltes"]) && $_FILES["kepfeltoltes"]["error"] == 0) {
+    $eleresi_ut = "../adoprofilkepek/";
+    $cel_fajl = $eleresi_ut . uniqid() . basename($_FILES["kepfeltoltes"]["name"]);
+    $fajl_tipus = strtolower(pathinfo($cel_fajl, PATHINFO_EXTENSION));
+
+
+    if ($_FILES["kepfeltoltes"]["size"] > 5 * 1024 * 1024) {
+        hiba_log("A fájl túl nagy.");
+
+        exit;
+    }
+
+
+    if (
+        $fajl_tipus != "jpg" && $fajl_tipus != "png" && $fajl_tipus != "jpeg"
+        && $fajl_tipus != "gif"
+    ) {
+        hiba_log("Nem engedélyezett fájltípus.");
+
+        exit;
+    }
+
+
+
+
+    if (move_uploaded_file($_FILES["kepfeltoltes"]["tmp_name"], $cel_fajl)) {
+        hiba_log("A fájl sikeresen feltöltve.");
+
+    } else {
+        hiba_log("Hiba történt a fájl feltöltésekor.");
+
+        exit;
+    }
+} else {
+    hiba_log("Nincs fájl feltöltve vagy hiba történt a feltöltés során.");
+
+    $cel_fajl=$_SESSION["kep"];
+    
+}
 
 try {
     $stmt = $conn->prepare("UPDATE ugyfelek SET 
@@ -56,12 +95,9 @@ try {
         keresztnev = ?, 
         email = ?, 
         telszam = ?, 
-        szul_ido = ?, 
-        szul_hely = ?, 
-        nem = ?, 
-        lakcim = ?, 
-        tajszam = ?, 
-        a_neve = ? 
+        szak = ?,
+        kep = ?,
+
         WHERE felhasznalonev = ?");
     
     $stmt->bind_param("sssssssssss", 
@@ -69,12 +105,8 @@ try {
         $keresztnev, 
         $email, 
         $telszam, 
-        $szul_ido, 
-        $szul_hely, 
-        $nem, 
-        $lakcim, 
-        $tajszam, 
-        $a_neve, 
+        $szak,
+        $cel_fajl,
         $loggedUsername
     );
     
@@ -85,12 +117,9 @@ try {
         $_SESSION["keresztnev"] = $keresztnev;
         $_SESSION["email"] = $email;
         $_SESSION["telszam"] = $telszam;
-        $_SESSION["szul_ido"] = $szul_ido;
-        $_SESSION["szul_hely"] = $szul_hely;
-        $_SESSION["nem"] = $nem;
-        $_SESSION["lakcim"] = $lakcim;
-        $_SESSION["tajszam"] = $tajszam;
-        $_SESSION["a_neve"] = $a_neve;
+        $_SESSION["szak"] = $szak;
+        $_SESSION["kep"] = $cel_fajl;
+        
         exit();
     } else {
         echo "Hiba történt a frissítés során: " . $stmt->error;
