@@ -1,7 +1,7 @@
 <?php
 $servername = "192.168.1.45";
 $username = "mybooking";
-$password = "mybooking"; 
+$password = "mybooking";
 $dbname = "user_data";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
