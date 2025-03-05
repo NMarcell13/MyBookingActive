@@ -42,12 +42,13 @@
             background-color: #0056b3;
             border-color: #0056b3;
         }
+
         .file-upload {
             position: relative;
             display: inline-block;
             width: 100%;
         }
-        
+
         .file-upload-label {
             display: flex;
             align-items: center;
@@ -62,16 +63,16 @@
             height: 100%;
             min-height: 58px;
         }
-        
+
         .file-upload-label:hover {
             background-color: #d1e7ff;
         }
-        
+
         .file-upload-label i {
             margin-right: 8px;
             font-size: 1.2rem;
         }
-        
+
         .file-upload input[type="file"] {
             position: absolute;
             left: 0;
@@ -81,7 +82,7 @@
             height: 100%;
             cursor: pointer;
         }
-        
+
         .file-name {
             margin-top: 5px;
             font-size: 0.85rem;
@@ -202,22 +203,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
-        <script>
-            
-            const fileInput = document.getElementById('kepfeltoltes');
-            const fileChosen = document.getElementById('file-chosen');
-            const fileName = document.getElementById('file-name');
-            
-            fileInput.addEventListener('change', function() {
-                if (this.files && this.files[0]) {
-                    fileChosen.textContent = 'Kép kiválasztva';
-                    fileName.textContent = this.files[0].name;
-                } else {
-                    fileChosen.textContent = 'Válasszon képet...';
-                    fileName.textContent = '';
-                }
-            });
-        </script>
+    <script>
+
+        const fileInput = document.getElementById('kepfeltoltes');
+        const fileChosen = document.getElementById('file-chosen');
+        const fileName = document.getElementById('file-name');
+
+        fileInput.addEventListener('change', function () {
+            if (this.files && this.files[0]) {
+                fileChosen.textContent = 'Kép kiválasztva';
+                fileName.textContent = this.files[0].name;
+            } else {
+                fileChosen.textContent = 'Válasszon képet...';
+                fileName.textContent = '';
+            }
+        });
+    </script>
 </body>
 
 </html>

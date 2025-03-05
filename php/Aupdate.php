@@ -7,7 +7,7 @@ if (!isset($_SESSION["felhasznalo"]) || empty($_SESSION["felhasznalo"])) {
 }
 
 $loggedUsername = $_SESSION["felhasznalo"];
-echo "Bejelentkezett felhasználó: " . $loggedUsername; 
+echo "Bejelentkezett felhasználó: " . $loggedUsername;
 
 $servername = "192.168.1.45";
 $username = "mybooking";
@@ -54,11 +54,11 @@ $cel_fajl = $userData["kep"];
 
 if (isset($_FILES["kepfeltoltes"]) && $_FILES["kepfeltoltes"]["error"] == 0 && $_FILES["kepfeltoltes"]["size"] > 0) {
     $eleresi_ut = "../adoprofilkepek/";
-    
+
     if (!file_exists($eleresi_ut)) {
         mkdir($eleresi_ut, 0777, true);
     }
-    
+
     $cel_fajl = $eleresi_ut . uniqid() . "_" . basename($_FILES["kepfeltoltes"]["name"]);
     $fajl_tipus = strtolower(pathinfo($cel_fajl, PATHINFO_EXTENSION));
 
@@ -95,27 +95,28 @@ try {
         szak = ?,
         kep = ?
         WHERE felhasznalonev = ?");
-    
-    $stmt->bind_param("sssssss", 
-        $vezeteknev, 
-        $keresztnev, 
-        $email, 
-        $telszam, 
+
+    $stmt->bind_param(
+        "sssssss",
+        $vezeteknev,
+        $keresztnev,
+        $email,
+        $telszam,
         $szak,
         $cel_fajl,
         $loggedUsername
     );
-    
+
     if ($stmt->execute()) {
         echo "Sikeres frissítés!";
-        
+
         $_SESSION["vezeteknev"] = $vezeteknev;
         $_SESSION["keresztnev"] = $keresztnev;
         $_SESSION["email"] = $email;
         $_SESSION["telszam"] = $telszam;
         $_SESSION["szak"] = $szak;
         $_SESSION["kep"] = $cel_fajl;
-        
+
         //header("Location: ../adoprofil.php");
         exit();
     } else {
@@ -129,4 +130,3 @@ try {
 $stmt->close();
 $conn->close();
 ?>
-

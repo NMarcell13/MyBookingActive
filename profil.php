@@ -107,7 +107,8 @@
                             <div class="col-md-6 mb-3">
                                 <h5>Születési idő:</h5>
                                 <input type="text" class="form-control inp" id="szul_ido" name="szul_ido"
-                                    placeholder="<?php echo $_SESSION["szul_ido"] ?>" disabled onfocus="(this.type='date')">
+                                    placeholder="<?php echo $_SESSION["szul_ido"] ?>" disabled
+                                    onfocus="(this.type='date')">
 
                             </div>
                             <div class="col-md-6 mb-3">
@@ -123,9 +124,9 @@
                                     <option value="Férfi">Férfi</option>
                                     <option value="Nő">Nő</option>
                                     <option value="Egyéb">Egyéb</option>
-                                    
+
                                 </select>
-                                
+
 
                             </div>
                             <div class="col-md-6 mb-3">

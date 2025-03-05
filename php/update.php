@@ -8,7 +8,7 @@ if (!isset($_SESSION["felhasznalo"]) || empty($_SESSION["felhasznalo"])) {
 }
 
 $loggedUsername = $_SESSION["felhasznalo"];
-echo "Bejelentkezett felhasználó: " . $loggedUsername; 
+echo "Bejelentkezett felhasználó: " . $loggedUsername;
 
 $servername = "192.168.1.45";
 $username = "mybooking";
@@ -63,21 +63,22 @@ try {
         tajszam = ?, 
         a_neve = ? 
         WHERE felhasznalonev = ?");
-    
-    $stmt->bind_param("sssssssssss", 
-        $vezeteknev, 
-        $keresztnev, 
-        $email, 
-        $telszam, 
-        $szul_ido, 
-        $szul_hely, 
-        $nem, 
-        $lakcim, 
-        $tajszam, 
-        $a_neve, 
+
+    $stmt->bind_param(
+        "sssssssssss",
+        $vezeteknev,
+        $keresztnev,
+        $email,
+        $telszam,
+        $szul_ido,
+        $szul_hely,
+        $nem,
+        $lakcim,
+        $tajszam,
+        $a_neve,
         $loggedUsername
     );
-    
+
     if ($stmt->execute()) {
         echo "Sikeres frissítés!";
         header("Location: ../profil.php");

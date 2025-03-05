@@ -30,7 +30,7 @@ if (password_verify($password, $row[2])) {
     $_SESSION["email"] = $row[5];
     $_SESSION["telszam"] = $row[6];
     $_SESSION["szak"] = $row[7];
-    $_SESSION["kep"]= $row[8];
+    $_SESSION["kep"] = $row[8];
 
     $_SESSION["titulus"] = "ado";
     header("Location: ../fooldal.php");

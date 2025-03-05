@@ -44,12 +44,13 @@
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
+
         .file-upload {
             position: relative;
             display: inline-block;
             width: 100%;
         }
-        
+
         .file-upload-label {
             display: flex;
             align-items: center;
@@ -64,16 +65,16 @@
             height: 100%;
             min-height: 58px;
         }
-        
+
         .file-upload-label:hover {
             background-color: #d1e7ff;
         }
-        
+
         .file-upload-label i {
             margin-right: 8px;
             font-size: 1.2rem;
         }
-        
+
         .file-upload input[type="file"] {
             position: absolute;
             left: 0;
@@ -83,7 +84,7 @@
             height: 100%;
             cursor: pointer;
         }
-        
+
         .file-name {
             margin-top: 5px;
             font-size: 0.85rem;
@@ -129,34 +130,34 @@
                 <div class="profile-card p-4">
                     <h1 class="text-center mb-4">Személyes adatok</h1>
                     <form action="php/Aupdate.php" method="post">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <h5>Vezetéknév:</h5>
-                            <input type="text" class="form-control inp" id="vezeteknev" name="vezeteknev"
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <h5>Vezetéknév:</h5>
+                                <input type="text" class="form-control inp" id="vezeteknev" name="vezeteknev"
                                     placeholder="<?php echo $_SESSION["vezeteknev"] ?>" disabled>
-                            
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h5>Keresztnév:</h5>
-                            <input type="text" class="form-control inp" id="keresztnev" name="keresztnev"
+
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5>Keresztnév:</h5>
+                                <input type="text" class="form-control inp" id="keresztnev" name="keresztnev"
                                     placeholder="<?php echo $_SESSION["keresztnev"] ?>" disabled>
-                           
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h5>Email:</h5>
-                            <input type="text" class="form-control inp" id="email" name="email"
+
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5>Email:</h5>
+                                <input type="text" class="form-control inp" id="email" name="email"
                                     placeholder="<?php echo $_SESSION["email"] ?>" disabled>
-                            
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h5>Telefonszám:</h5>
-                            <input type="tel" class="form-control inp" id="telszam" name="telszam"
+
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5>Telefonszám:</h5>
+                                <input type="tel" class="form-control inp" id="telszam" name="telszam"
                                     placeholder="<?php echo $_SESSION["telszam"] ?>" disabled>
-                            
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h5>Szakterület:</h5>
-                            <select name="szak" id="szak" class="form-control inp" disabled>
+
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5>Szakterület:</h5>
+                                <select name="szak" id="szak" class="form-control inp" disabled>
                                     <option value="" disabled selected><?php echo $_SESSION["szak"] ?></option>
                                     <option value="fodrasz">Fodrász</option>
                                     <option value="orvos">Orvos</option>
@@ -167,32 +168,34 @@
                                     <option value="sport">Sport szakértő</option>
                                     <option value="auto">Autószerelő</option>
                                 </select>
-                            
-                        </div>
-                        <div class="col-md-6 mb-3">
-                        <h5>Profilkép:</h5>
-                        
-                        <div class="file-upload" class="inp">
+
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5>Profilkép:</h5>
+
+                                <div class="file-upload" class="inp">
                                     <label for="kepfeltoltes" class="file-upload-label">
                                         <i class="bi bi-cloud-arrow-up"></i>
                                         <span id="file-chosen">Válasszon képet...</span>
                                     </label>
-                                    <input type="file" id="kepfeltoltes" name="kepfeltoltes" class=" form-control inp" accept="image/*">
+                                    <input type="file" id="kepfeltoltes" name="kepfeltoltes" class=" form-control inp"
+                                        accept="image/*">
                                     <div id="file-name" class="file-name"></div>
                                 </div>
-                            
-                        </div>
 
-                        <div class="col-md-6 mb-3">
-                            <button type="button" class="btn btn-primary w-100 mt-4" id="szerkesztes"  onclick="szerkesztess()">Profil adatainak
-                                szerkesztése</button>
-                        </div>
-                        <div class="col-md-6 mb-3">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <button type="button" class="btn btn-primary w-100 mt-4" id="szerkesztes"
+                                    onclick="szerkesztess()">Profil adatainak
+                                    szerkesztése</button>
+                            </div>
+                            <div class="col-md-6 mb-3">
                                 <button type="submit" class="btn btn-primary w-100 mt-4" id="mentes"
                                     hidden>Mentés</button>
                             </div>
 
-                    </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -207,8 +210,8 @@
             const fileInput = document.getElementById('kepfeltoltes');
             const fileChosen = document.getElementById('file-chosen');
             const fileName = document.getElementById('file-name');
-            
-            fileInput.addEventListener('change', function() {
+
+            fileInput.addEventListener('change', function () {
                 if (this.files && this.files[0]) {
                     fileChosen.textContent = 'Kép kiválasztva';
                     fileName.textContent = this.files[0].name;
@@ -219,10 +222,10 @@
             });
         }
 
-        
-            
-            
-       
+
+
+
+
 
 
     </script>
