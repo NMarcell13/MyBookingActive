@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-
 if (!isset($_SESSION["felhasznalo"]) || empty($_SESSION["felhasznalo"])) {
     echo "Nincs bejelentkezve! Session változó üres.";
     exit();
@@ -30,7 +29,6 @@ function hiba_log($data)
     echo "<script>console.log('" . $output . "' );</script>";
 }
 
-
 $checkUser = $conn->prepare("SELECT * FROM adok WHERE felhasznalonev = ?");
 $checkUser->bind_param("s", $loggedUsername);
 $checkUser->execute();
@@ -43,59 +41,49 @@ if ($result->num_rows === 0) {
     exit();
 }
 
-
 $userData = $result->fetch_assoc();
 $checkUser->close();
-
 
 $vezeteknev = !empty($_POST["vezeteknev"]) ? $_POST["vezeteknev"] : $userData["vezeteknev"];
 $keresztnev = !empty($_POST["keresztnev"]) ? $_POST["keresztnev"] : $userData["keresztnev"];
 $email = !empty($_POST["email"]) ? $_POST["email"] : $userData["email"];
 $telszam = !empty($_POST["telszam"]) ? $_POST["telszam"] : $userData["telszam"];
 $szak = !empty($_POST["szak"]) ? $_POST["szak"] : $userData["szak"];
-$kepfeltoltes =!empty($_POST["kepfeltoltes"]) ? $_POST["kepfeltoltes"] : $userData["kepfeltoltes"];
 
+$cel_fajl = $userData["kep"];
 
-$cel_fajl = "";
-
-if (isset($_FILES["kepfeltoltes"]) && $_FILES["kepfeltoltes"]["error"] == 0) {
+if (isset($_FILES["kepfeltoltes"]) && $_FILES["kepfeltoltes"]["error"] == 0 && $_FILES["kepfeltoltes"]["size"] > 0) {
     $eleresi_ut = "../adoprofilkepek/";
-    $cel_fajl = $eleresi_ut . uniqid() . basename($_FILES["kepfeltoltes"]["name"]);
+    
+    if (!file_exists($eleresi_ut)) {
+        mkdir($eleresi_ut, 0777, true);
+    }
+    
+    $cel_fajl = $eleresi_ut . uniqid() . "_" . basename($_FILES["kepfeltoltes"]["name"]);
     $fajl_tipus = strtolower(pathinfo($cel_fajl, PATHINFO_EXTENSION));
-
 
     if ($_FILES["kepfeltoltes"]["size"] > 5 * 1024 * 1024) {
         hiba_log("A fájl túl nagy.");
-
         exit;
     }
-
 
     if (
         $fajl_tipus != "jpg" && $fajl_tipus != "png" && $fajl_tipus != "jpeg"
         && $fajl_tipus != "gif"
     ) {
         hiba_log("Nem engedélyezett fájltípus.");
-
         exit;
     }
-
-
-
 
     if (move_uploaded_file($_FILES["kepfeltoltes"]["tmp_name"], $cel_fajl)) {
-        hiba_log("A fájl sikeresen feltöltve.");
-
+        hiba_log("A fájl sikeresen feltöltve: " . $cel_fajl);
     } else {
-        hiba_log("Hiba történt a fájl feltöltésekor.");
-
-        exit;
+        hiba_log("Hiba történt a fájl feltöltésekor: " . $_FILES["kepfeltoltes"]["error"]);
+        $cel_fajl = $userData["kep"];
     }
 } else {
-    hiba_log("Nincs fájl feltöltve vagy hiba történt a feltöltés során.");
-
-    $cel_fajl=$_SESSION["kep"];
-    
+    hiba_log("Nincs új kép feltöltve vagy hiba történt. Megtartjuk a jelenlegi képet.");
+    $cel_fajl = $userData["kep"];
 }
 
 try {
@@ -106,7 +94,6 @@ try {
         telszam = ?, 
         szak = ?,
         kep = ?
-
         WHERE felhasznalonev = ?");
     
     $stmt->bind_param("sssssss", 
@@ -121,7 +108,7 @@ try {
     
     if ($stmt->execute()) {
         echo "Sikeres frissítés!";
-        header("Location: ../adoprofil.php");
+        
         $_SESSION["vezeteknev"] = $vezeteknev;
         $_SESSION["keresztnev"] = $keresztnev;
         $_SESSION["email"] = $email;
@@ -129,6 +116,7 @@ try {
         $_SESSION["szak"] = $szak;
         $_SESSION["kep"] = $cel_fajl;
         
+        //header("Location: ../adoprofil.php");
         exit();
     } else {
         echo "Hiba történt a frissítés során: " . $stmt->error;
@@ -141,3 +129,4 @@ try {
 $stmt->close();
 $conn->close();
 ?>
+

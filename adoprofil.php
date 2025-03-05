@@ -44,7 +44,57 @@
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e6f3ff;
+            color: #007bff;
+            border: 1px dashed #007bff;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            height: 100%;
+            min-height: 58px;
+        }
+        
+        .file-upload-label:hover {
+            background-color: #d1e7ff;
+        }
+        
+        .file-upload-label i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .file-upload input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .file-name {
+            margin-top: 5px;
+            font-size: 0.85rem;
+            color: #6c757d;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -122,7 +172,14 @@
                         <div class="col-md-6 mb-3">
                         <h5>Profilkép:</h5>
                         
-                        <input type="file" id="kepfeltoltes" class="inp" name="kepfeltoltes" accept="image/*" disabled>
+                        <div class="file-upload" class="inp">
+                                    <label for="kepfeltoltes" class="file-upload-label">
+                                        <i class="bi bi-cloud-arrow-up"></i>
+                                        <span id="file-chosen">Válasszon képet...</span>
+                                    </label>
+                                    <input type="file" id="kepfeltoltes" name="kepfeltoltes" class=" form-control inp" accept="image/*">
+                                    <div id="file-name" class="file-name"></div>
+                                </div>
                             
                         </div>
 
@@ -146,7 +203,26 @@
             let mentes = document.getElementById('mentes');
             mentes.hidden = false;
             document.querySelectorAll('.inp').forEach(el => el.removeAttribute('disabled'));
+
+            const fileInput = document.getElementById('kepfeltoltes');
+            const fileChosen = document.getElementById('file-chosen');
+            const fileName = document.getElementById('file-name');
+            
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    fileChosen.textContent = 'Kép kiválasztva';
+                    fileName.textContent = this.files[0].name;
+                } else {
+                    fileChosen.textContent = 'Válasszon képet...';
+                    fileName.textContent = '';
+                }
+            });
         }
+
+        
+            
+            
+       
 
 
     </script>
