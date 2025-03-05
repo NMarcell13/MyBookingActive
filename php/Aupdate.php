@@ -21,6 +21,15 @@ if ($conn->connect_error) {
     die("Kapcsolódási hiba: " . $conn->connect_error);
 }
 
+function hiba_log($data)
+{
+    $output = $data;
+    if (is_array($output))
+        $output = implode(',', $output);
+
+    echo "<script>console.log('" . $output . "' );</script>";
+}
+
 
 $checkUser = $conn->prepare("SELECT * FROM adok WHERE felhasznalonev = ?");
 $checkUser->bind_param("s", $loggedUsername);
@@ -90,17 +99,17 @@ if (isset($_FILES["kepfeltoltes"]) && $_FILES["kepfeltoltes"]["error"] == 0) {
 }
 
 try {
-    $stmt = $conn->prepare("UPDATE ugyfelek SET 
+    $stmt = $conn->prepare("UPDATE adok SET 
         vezeteknev = ?, 
         keresztnev = ?, 
         email = ?, 
         telszam = ?, 
         szak = ?,
-        kep = ?,
+        kep = ?
 
         WHERE felhasznalonev = ?");
     
-    $stmt->bind_param("sssssssssss", 
+    $stmt->bind_param("sssssss", 
         $vezeteknev, 
         $keresztnev, 
         $email, 
@@ -112,7 +121,7 @@ try {
     
     if ($stmt->execute()) {
         echo "Sikeres frissítés!";
-        header("Location: ../profil.php");
+        header("Location: ../adoprofil.php");
         $_SESSION["vezeteknev"] = $vezeteknev;
         $_SESSION["keresztnev"] = $keresztnev;
         $_SESSION["email"] = $email;
