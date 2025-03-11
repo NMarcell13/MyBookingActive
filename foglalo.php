@@ -224,11 +224,7 @@
               </div>
             </div>
 
-            <div class="custom-date mt-4">
-              <label for="custom-time" class="form-label">Egyedi időpont választása:</label>
-              <input type="datetime-local" class="form-control" id="custom-time" name="custom-time"
-                min="2025-02-22T00:00" max="2026-12-31T00:00">
-            </div>
+            
 
             <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont
               foglalása</button>
