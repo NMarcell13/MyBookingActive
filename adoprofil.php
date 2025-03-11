@@ -178,7 +178,7 @@
                                         <i class="bi bi-cloud-arrow-up"></i>
                                         <span id="file-chosen">Válasszon képet...</span>
                                     </label>
-                                    <input type="file" id="kepfeltoltes" name="kepfeltoltes" class=" form-control inp"
+                                    <input type="file" id="kepfeltoltes" name="kepfeltoltes" class="form-control inp"
                                         accept="image/*">
                                     <div id="file-name" class="file-name"></div>
                                 </div>

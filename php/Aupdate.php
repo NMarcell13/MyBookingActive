@@ -41,6 +41,7 @@ if ($result->num_rows === 0) {
     exit();
 }
 
+
 $userData = $result->fetch_assoc();
 $checkUser->close();
 
@@ -50,7 +51,7 @@ $email = !empty($_POST["email"]) ? $_POST["email"] : $userData["email"];
 $telszam = !empty($_POST["telszam"]) ? $_POST["telszam"] : $userData["telszam"];
 $szak = !empty($_POST["szak"]) ? $_POST["szak"] : $userData["szak"];
 
-$cel_fajl = $userData["kep"];
+$cel_fajl = !empty($_POST["kepfeltoltes"]) ? $_POST["kepfeltoltes"] : $userData["kep"];
 
 if (isset($_FILES["kepfeltoltes"]) && $_FILES["kepfeltoltes"]["error"] == 0 && $_FILES["kepfeltoltes"]["size"] > 0) {
     $eleresi_ut = "../adoprofilkepek/";
@@ -59,7 +60,7 @@ if (isset($_FILES["kepfeltoltes"]) && $_FILES["kepfeltoltes"]["error"] == 0 && $
         mkdir($eleresi_ut, 0777, true);
     }
 
-    $cel_fajl = $eleresi_ut . uniqid() . "_" . basename($_FILES["kepfeltoltes"]["name"]);
+    $cel_fajl = $eleresi_ut . uniqid() . basename($_FILES["kepfeltoltes"]["name"]);
     $fajl_tipus = strtolower(pathinfo($cel_fajl, PATHINFO_EXTENSION));
 
     if ($_FILES["kepfeltoltes"]["size"] > 5 * 1024 * 1024) {
