@@ -51,39 +51,48 @@ $email = !empty($_POST["email"]) ? $_POST["email"] : $userData["email"];
 $telszam = !empty($_POST["telszam"]) ? $_POST["telszam"] : $userData["telszam"];
 $szak = !empty($_POST["szak"]) ? $_POST["szak"] : $userData["szak"];
 
-$cel_fajl = !empty($_POST["kepfeltoltes"]) ? $_POST["kepfeltoltes"] : $userData["kep"];
+$cel_fajl = "";
 
-if (isset($_FILES["kepfeltoltes"]) && $_FILES["kepfeltoltes"]["error"] == 0 && $_FILES["kepfeltoltes"]["size"] > 0) {
+if (isset($_FILES["kepfeltoltes"]) && $_FILES["kepfeltoltes"]["error"] == 0) {
     $eleresi_ut = "../adoprofilkepek/";
-
-    if (!file_exists($eleresi_ut)) {
-        mkdir($eleresi_ut, 0777, true);
-    }
-
     $cel_fajl = $eleresi_ut . uniqid() . basename($_FILES["kepfeltoltes"]["name"]);
     $fajl_tipus = strtolower(pathinfo($cel_fajl, PATHINFO_EXTENSION));
 
+
     if ($_FILES["kepfeltoltes"]["size"] > 5 * 1024 * 1024) {
         hiba_log("A fájl túl nagy.");
+        $cel_fajl = $userData["kep"];
+
         exit;
     }
+
 
     if (
         $fajl_tipus != "jpg" && $fajl_tipus != "png" && $fajl_tipus != "jpeg"
         && $fajl_tipus != "gif"
     ) {
         hiba_log("Nem engedélyezett fájltípus.");
+        $cel_fajl = $userData["kep"];
+
         exit;
     }
 
+
+
+
     if (move_uploaded_file($_FILES["kepfeltoltes"]["tmp_name"], $cel_fajl)) {
-        hiba_log("A fájl sikeresen feltöltve: " . $cel_fajl);
+        hiba_log("A fájl sikeresen feltöltve.");
+
     } else {
-        hiba_log("Hiba történt a fájl feltöltésekor: " . $_FILES["kepfeltoltes"]["error"]);
+        hiba_log("Hiba történt a fájl feltöltésekor.");
         $cel_fajl = $userData["kep"];
+
+        exit;
     }
 } else {
-    hiba_log("Nincs új kép feltöltve vagy hiba történt. Megtartjuk a jelenlegi képet.");
+    hiba_log("Nincs fájl feltöltve vagy hiba történt a feltöltés során.");
+
+
     $cel_fajl = $userData["kep"];
 }
 
@@ -118,7 +127,7 @@ try {
         $_SESSION["szak"] = $szak;
         $_SESSION["kep"] = $cel_fajl;
 
-        //header("Location: ../adoprofil.php");
+        header("Location: ../adoprofil.php");
         exit();
     } else {
         echo "Hiba történt a frissítés során: " . $stmt->error;

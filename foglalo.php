@@ -131,7 +131,7 @@
 
 
 
-
+//kodolgatas 2025.03.12
   
 
   $sql = "SELECT * FROM adok WHERE felhasznalonev = '" . $nev . "'";
@@ -144,6 +144,45 @@
       $_add_disabled = "disabled";
     }
   }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+
+$idopont = $_POST['idopont'];
+
+
+
+$sql ="INSERT INTO idopontok (idopont) VALUES (?)";
+$stmt = $mysqli->prepare($sql);
+
+if ($stmt === false) {
+
+die("Hiba van a lekerdezesben". $mysqli->error);
+
+
+}
+
+$stmt->bind_param("s",$idopont)
+
+//lekerdezes
+//baj van
+if ($stmt->execute()) {
+
+
+echo ("Az idopont mentve van");
+
+
+} else {
+
+echo("Hiba történt a mentésben". $stmt->error);
+
+}
+
+
+}
+
+
+
 
 
 
@@ -190,7 +229,7 @@
       <div class="col-md-8">
         <div class="time-slots">
           <h3 class="mb-4">Válasszon időpontot</h3>
-          <form type="submit">
+          <form method="POST" action="foglalo.php">
             <div class="row">
               
 
