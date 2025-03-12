@@ -128,6 +128,12 @@
     $nev = $_POST["nev"];
   }
 
+
+
+
+
+  
+
   $sql = "SELECT * FROM adok WHERE felhasznalonev = '" . $nev . "'";
   $result = $conn->query($sql);
   $row = mysqli_fetch_assoc($result);
@@ -184,50 +190,27 @@
       <div class="col-md-8">
         <div class="time-slots">
           <h3 class="mb-4">Válasszon időpontot</h3>
-          <form>
+          <form type="submit">
             <div class="row">
-              <div class="col-md-6">
-                <div class="time-slot">
-                  <input type="radio" class="btn-check" name="appointment" id="slot1" autocomplete="off">
-                  <label class="btn btn-outline-primary w-100" for="slot1">2025. március 20. 10:00</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="time-slot">
-                  <input type="radio" class="btn-check" name="appointment" id="slot2" autocomplete="off">
-                  <label class="btn btn-outline-primary w-100" for="slot2">2025. július 15. 12:00</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="time-slot">
-                  <input type="radio" class="btn-check" name="appointment" id="slot3" autocomplete="off">
-                  <label class="btn btn-outline-primary w-100" for="slot3">2025. augusztus 10. 11:00</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="time-slot">
-                  <input type="radio" class="btn-check" name="appointment" id="slot4" autocomplete="off">
-                  <label class="btn btn-outline-primary w-100" for="slot4">2026. szeptember 3. 10:00</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="time-slot">
-                  <input type="radio" class="btn-check" name="appointment" id="slot5" autocomplete="off">
-                  <label class="btn btn-outline-primary w-100" for="slot5">2026. január 22. 11:00</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="time-slot">
-                  <input type="radio" class="btn-check" name="appointment" id="slot6" autocomplete="off">
-                  <label class="btn btn-outline-primary w-100" for="slot6">2026. február 22. 12:00</label>
-                </div>
-              </div>
-            </div>
+              
 
             
 
-            <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont
+           
+
+             
+
+              <label for="date">Időpont:</label>
+        <input type="date" id="idopont" name="Idopont" required>
+        <br>
+
+
+
+              <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont
               foglalása</button>
+
+
+             
 
 
 
@@ -241,6 +224,17 @@
             <input type="datetime-local" class="form-control" id="custom-time" name="ido_plus" id="ido_plus">
             <button type="submit" class="btn btn-primary w-100 mt-4" id="add" onclick="i_hozzaadas()">Időpont
               hozzáadása</button>
+
+
+              <label for="date">Időpont:</label>
+        <input type="date" id="idopont" name="Idopont" required>
+        <br>
+
+
+
+              <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont
+              foglalása</button>
+
 
           </form>
 

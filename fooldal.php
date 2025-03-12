@@ -100,8 +100,8 @@
                 <a href="fooldal.php" class="btn btn-primary mt-3">Foglalás most</a>
               </div>
               <div class="col-md-4 text-center">
-                <img src="kepek/discount.png" alt="10% kedvezmény" class="img-fluid rounded-circle"
-                  style="max-width: 200px;">
+                <img src="kepek/kedvezmeny.png" alt="10% kedvezmény" class="img-fluid rounded-circle"
+                  style="max-width: 300px;">
               </div>
             </div>
           </div>
