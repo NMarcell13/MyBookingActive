@@ -132,6 +132,7 @@
 
 
 //kodolgatas 2025.03.12
+//fasszopo tamas
   
 
   $sql = "SELECT * FROM adok WHERE felhasznalonev = '" . $nev . "'";
@@ -162,14 +163,13 @@ die("Hiba van a lekerdezesben". $mysqli->error);
 
 }
 
-$stmt->bind_param("s",$idopont)
+$stmt->bind_param("s",$idopont);
 
 //lekerdezes
-//baj van
 if ($stmt->execute()) {
 
 
-echo ("Az idopont mentve van");
+echo "Az idopont mentve van";
 
 
 } else {

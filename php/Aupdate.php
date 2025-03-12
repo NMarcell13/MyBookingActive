@@ -84,13 +84,13 @@ if (isset($_FILES["kepfeltoltes"]) && $_FILES["kepfeltoltes"]["error"] == 0) {
         hiba_log("A fájl sikeresen feltöltve.");
 
     } else {
-        hiba_log("Hiba történt a fájl feltöltésekor.");
+        hiba_log("Hiba történt a fájl feltöltésekor. marad a régi kép ");
         $cel_fajl = $userData["kep"];
 
         exit;
     }
 } else {
-    hiba_log("Nincs fájl feltöltve vagy hiba történt a feltöltés során.");
+    hiba_log("Nincs fájl feltöltve vagy hiba történt a feltöltés során. marad a régi kép");
 
 
     $cel_fajl = $userData["kep"];
