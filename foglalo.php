@@ -91,53 +91,54 @@
 
 <body>
   <?php
-  $servername = "192.168.1.45";
-  $username = "mybooking";
-  $password = "mybooking";
-  $dbname = "mybooking";
-  session_start();
-  $conn = new mysqli($servername, $username, $password, $dbname);
-
-
-
-  if ($conn->connect_error) {
-    die("Kapcsolódási hiba: " . $conn->connect_error);
-  }
-
-  $_add_hidden = "hidden";
-  $_add_disabled = "";
-
-  if ($_SESSION["titulus"] == "admin") {
-    $adatprofil = "adminprofil.php";
-    $_add_hidden = "";
-    $_add_disabled = "";
-
-
-  } elseif ($_SESSION["titulus"] == "ugyfel") {
-    $adatprofil = "profil.php";
-    $_add_hidden = "hidden";
-    $_add_disabled = "";
-
-  } elseif ($_SESSION["titulus"] == "ado") {
-    $adatprofil = "adoprofil.php";
-
-
-  }
-
-  if (isset($_POST["nev"])) {
-    $nev = $_POST["nev"];
-  }
-
-
-
-
-//kodolgatas 2025.03.12
-//fasszopo tamas
-  
-
-  $sql = "SELECT * FROM adok WHERE felhasznalonev = '" . $nev . "'";
+   $servername = "192.168.1.45";
+   $username = "mybooking";
+   $password = "mybooking";
+   $dbname = "mybooking";
+   session_start();
+   $conn = new mysqli($servername, $username, $password, $dbname);
+ 
+ 
+ 
+   if ($conn->connect_error) {
+     die("Kapcsolódási hiba: " . $conn->connect_error);
+   }
+ 
+   $_add_hidden = "hidden";
+   $_add_disabled = "";
+ 
+   if ($_SESSION["titulus"] == "admin") {
+     $adatprofil = "adminprofil.php";
+     $_add_hidden = "";
+     $_add_disabled = "";
+ 
+ 
+   } elseif ($_SESSION["titulus"] == "ugyfel") {
+     $adatprofil = "profil.php";
+     $_add_hidden = "hidden";
+     $_add_disabled = "";
+ 
+   } elseif ($_SESSION["titulus"] == "ado") {
+     $adatprofil = "adoprofil.php";
+ 
+ 
+   }
+ 
+   if (isset($_POST["nev"])) {
+     $nev = $_POST["nev"];
+   }
+ 
+   $sql = "SELECT * FROM adok WHERE felhasznalonev = '" . $nev . "'";
   $result = $conn->query($sql);
-  $row = mysqli_fetch_assoc($result);
+  if ($result->num_rows > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $_SESSION["kepecske"] = trim($row['kep'], '\.\.\/');;
+    $_SESSION["leiras"] = $row["leiras"];
+    $_SESSION["telszam"] = $row["telszam"];
+    $_SESSION["email"] = $row["email"];
+    $_SESSION["hely"] = $row["hely"];
+  
+  }
 
   if ($_SESSION["titulus"] == "ado") {
     if ($_SESSION["felhasznalo"] == $nev) {
@@ -146,47 +147,10 @@
     }
   }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-
-$idopont = $_POST['idopont'];
-
-
-
-$sql ="INSERT INTO idopontok (idopont) VALUES (?)";
-$stmt = $mysqli->prepare($sql);
-
-if ($stmt === false) {
-
-die("Hiba van a lekerdezesben". $mysqli->error);
-
-
-}
-
-$stmt->bind_param("s",$idopont);
-
-//lekerdezes
-if ($stmt->execute()) {
-
-
-echo "Az idopont mentve van";
-
-
-} else {
-
-echo("Hiba történt a mentésben". $stmt->error);
-
-}
-
-
-}
-
-
-
-
-
-
+  
   ?>
+
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light-blue">
     <div class="container">
@@ -215,21 +179,21 @@ echo("Hiba történt a mentésben". $stmt->error);
     <div class="row">
       <div class="col-md-4">
         <div class="doctor-card">
-          <img src="<?php echo $kepecske = trim($row['kep'], '\.\.\/'); ?>" alt="<?php echo $row['felhasznalonev'] ?>"
+          <img src="<?php echo $_SESSION['kepecske']; ?>" alt="<?php echo $row['felhasznalonev'] ?>"
             class="doctor-image">
           <div class="doctor-info">
-            <h2><?php echo $row['vezeteknev'] . " " . $row['keresztnev'] ?></h2>
-            <p><strong>Leírás: <br></strong> <?php echo $row['leiras'] ?></p>
-            <p><strong>Telefonszám:</strong> <?php echo $row['telszam'] ?></p>
-            <p><strong>Email:</strong> <?php echo $row['email'] ?></p>
-            <p><strong>Helyszín:</strong> <?php echo $row['hely'] ?></p>
+            <h2><?php echo $_SESSION["vezeteknev"] . " " . $_SESSION["keresztnev"] ?></h2>
+            <p><strong>Leírás: <br></strong> <?php echo $_SESSION['leiras'] ?></p>
+            <p><strong>Telefonszám:</strong> <?php echo $_SESSION['telszam'] ?></p>
+            <p><strong>Email:</strong> <?php echo $_SESSION['email'] ?></p>
+            <p><strong>Helyszín:</strong> <?php echo $_SESSION['hely'] ?></p>
           </div>
         </div>
       </div>
       <div class="col-md-8">
         <div class="time-slots">
           <h3 class="mb-4">Válasszon időpontot</h3>
-          <form method="POST" action="foglalo.php">
+          <form method="POST" action="foglalas.php">
             <div class="row">
               
 
@@ -245,9 +209,7 @@ echo("Hiba történt a mentésben". $stmt->error);
 
 
 
-              <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont
-              foglalása</button>
-
+              <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont foglalása</button>
 
              
 
@@ -259,20 +221,10 @@ echo("Hiba történt a mentésben". $stmt->error);
       </div>
       <div class="col-md-4" <?php echo $_add_hidden ?>>
         <div class="time-slots">
-          <form action="idopontos.php" method="post">
+          <form action="foglalas.php" method="post">
             <input type="datetime-local" class="form-control" id="custom-time" name="ido_plus" id="ido_plus">
             <button type="submit" class="btn btn-primary w-100 mt-4" id="add" onclick="i_hozzaadas()">Időpont
               hozzáadása</button>
-
-
-              <label for="date">Időpont:</label>
-        <input type="date" id="idopont" name="Idopont" required>
-        <br>
-
-
-
-              <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont
-              foglalása</button>
 
 
           </form>
