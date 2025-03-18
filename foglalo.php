@@ -132,6 +132,8 @@
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     $row = mysqli_fetch_assoc($result);
+    
+
     $_SESSION["kepecske"] = trim($row['kep'], '\.\.\/');;
     $_SESSION["leiras"] = $row["leiras"];
     $_SESSION["telszam"] = $row["telszam"];
@@ -182,7 +184,7 @@
           <img src="<?php echo $_SESSION['kepecske']; ?>" alt="<?php echo $row['felhasznalonev'] ?>"
             class="doctor-image">
           <div class="doctor-info">
-            <h2><?php echo $_SESSION["vezeteknev"] . " " . $_SESSION["keresztnev"] ?></h2>
+            <h2><?php echo $row["vezeteknev"] . " " . $row["keresztnev"] ?></h2>
             <p><strong>Leírás: <br></strong> <?php echo $_SESSION['leiras'] ?></p>
             <p><strong>Telefonszám:</strong> <?php echo $_SESSION['telszam'] ?></p>
             <p><strong>Email:</strong> <?php echo $_SESSION['email'] ?></p>
@@ -204,7 +206,7 @@
              
 
               <label for="date">Időpont:</label>
-        <input type="date" id="idopont" name="Idopont" required>
+        <input type="date" class="form-control" id="custom-time" name="Idopont" required>
         <br>
 
 
