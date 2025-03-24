@@ -86,6 +86,15 @@
     .book-button:hover {
       background-color: #0056b3;
     }
+    
+    .time-buttons {
+      margin-bottom: 1.5rem;
+    }
+
+    .time-slot-btn {
+      margin-bottom: 0.5rem;
+      margin-right: 0.5rem;
+    }
   </style>
 </head>
 
@@ -125,25 +134,26 @@
    }
  
    if (isset($_POST["nev"])) {
-     $nev = $_POST["nev"];
+    $_SESSION["nev"] = $_POST["nev"];
    }
  
-   $sql = "SELECT * FROM adok WHERE felhasznalonev = '" . $nev . "'";
+   $sql = "SELECT * FROM adok WHERE felhasznalonev = '" . $_SESSION["nev"] . "'";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     $row = mysqli_fetch_assoc($result);
     
-
+    
     $_SESSION["kepecske"] = trim($row['kep'], '\.\.\/');;
     $_SESSION["leiras"] = $row["leiras"];
     $_SESSION["telszam"] = $row["telszam"];
     $_SESSION["email"] = $row["email"];
     $_SESSION["hely"] = $row["hely"];
+
   
   }
 
   if ($_SESSION["titulus"] == "ado") {
-    if ($_SESSION["felhasznalo"] == $nev) {
+    if ($_SESSION["felhasznalo"] == $_SESSION["nev"]) {
       $_add_hidden = "";
       $_add_disabled = "disabled";
     }
@@ -197,26 +207,28 @@
           <h3 class="mb-4">Válasszon időpontot</h3>
           <form method="POST" action="foglalas.php">
             <div class="row">
-              
-
-            
-
-           
-
-             
-
               <label for="date">Időpont:</label>
-        <input type="date" class="form-control" id="custom-time" name="Idopont" required>
-        <br>
+              <?php
+              $sql = "SELECT idopontok FROM idopontok WHERE ado = '" . $_SESSION["nev"] . "'";
+              $result = $conn->query($sql);
+              
+              if ($result->num_rows > 0) {
+                  echo "<div class='time-buttons d-flex flex-wrap'>";
+                  while ($row = $result->fetch_assoc()) {
 
+                      echo "<button type='button' class='btn btn-outline-primary time-slot-btn' onclick='selectTimeSlot(this)' name='selected_time' value='" . $row["idopontok"] . "'>" . $row["idopontok"] . "</button>";
+                  }
+                  echo "</div>";
+                  echo "<input type='hidden' id='selected_time_input' name='selected_time_input'>";
+              } else {
+                  echo "<p>Nincs még időpont feltöltve.</p>";
+              }
+              ?>
+              <br>
 
-
+              <input type="hidden" name="ado_username" value="<?php echo $nev; ?>">
               <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont foglalása</button>
-
-             
-
-
-
+              <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont lemondása</button>
 
           </form>
         </div>
@@ -224,26 +236,26 @@
       <div class="col-md-4" <?php echo $_add_hidden ?>>
         <div class="time-slots">
           <form action="foglalas.php" method="post">
-            <input type="datetime-local" class="form-control" id="custom-time" name="ido_plus" id="ido_plus">
-            <button type="submit" class="btn btn-primary w-100 mt-4" id="add" onclick="i_hozzaadas()">Időpont
-              hozzáadása</button>
-
-
+            <input type="datetime-local" class="form-control" id="custom-time" name="ido_plus">
+            <input type="hidden" name="ado_username" value="<?php echo $nev; ?>">
+            <button type="submit" class="btn btn-primary w-100 mt-4" id="add">Időpont hozzáadása</button>
           </form>
-
-
-
-
-
         </div>
       </div>
     </div>
   </div>
+  
   <script>
-    function i_hozzaadas() {
-      document.getElementById("datumado").innerHTML += ' <br> '
+    function selectTimeSlot(button) {
+      const buttons = document.querySelectorAll('.time-slot-btn');
+      buttons.forEach(btn => btn.classList.remove('btn-primary'));
+      buttons.forEach(btn => btn.classList.add('btn-outline-primary'));
+      
+      button.classList.remove('btn-outline-primary');
+      button.classList.add('btn-primary');
+      
+      document.getElementById('selected_time_input').value = button.value;
     }
-
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
