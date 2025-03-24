@@ -41,7 +41,7 @@ $userData = $result->fetch_assoc();
 $checkUser->close();
 
 
-$mezok = ['vezeteknev', 'keresztnev', 'email', 'telszam', 'szak'];
+$mezok = ['vezeteknev', 'keresztnev', 'email', 'telszam', 'szak', 'hely', 'leiras'];
 $updateData = [];
 foreach ($mezok as $mezo) {
     $updateData[$mezo] = !empty($_POST[$mezo]) ? $_POST[$mezo] : $userData[$mezo];
@@ -80,16 +80,20 @@ try {
         email = ?, 
         telszam = ?, 
         szak = ?,
-        kep = ?
+        kep = ?,
+        hely=?,
+        leiras=?
         WHERE felhasznalonev = ?");
 
     $stmt->bind_param(
-        "sssssss",
+        "sssssssss",
         $updateData['vezeteknev'],
         $updateData['keresztnev'],
         $updateData['email'],
         $updateData['telszam'],
         $updateData['szak'],
+        $updateData['hely'],
+        $updateData['leiras'],
         $cel_fajl,
         $loggedUsername
     );
@@ -101,6 +105,8 @@ try {
         $_SESSION["email"] = $updateData['email'];
         $_SESSION["telszam"] = $updateData['telszam'];
         $_SESSION["szak"] = $updateData['szak'];
+        $_SESSION["hely"] = $updateData['hely'];
+        $_SESSION["leiras"] = $updateData['leiras'];
         $_SESSION["kep"] = $cel_fajl;
         
         $_SESSION['siker'] = "Sikeres frissítés!";

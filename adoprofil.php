@@ -186,6 +186,20 @@
                             </div>
 
                             <div class="col-md-6 mb-3">
+                                <h5>Helyszín:</h5>
+                                <input type="tel" class="form-control inp" id="hely" name="hely"
+                                    placeholder="<?php echo $_SESSION["hely"] ?>" disabled>
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <h5>Leírás:</h5>
+                                <input type="tel" class="form-control inp" id="leiras" name="leiras"
+                                    placeholder="<?php echo $_SESSION["leiras"] ?>" disabled>
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
                                 <button type="button" class="btn btn-primary w-100 mt-4" id="szerkesztes"
                                     onclick="szerkesztess()">Profil adatainak
                                     szerkesztése</button>

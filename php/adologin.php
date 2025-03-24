@@ -31,6 +31,8 @@ if (password_verify($password, $row[2])) {
     $_SESSION["telszam"] = $row[6];
     $_SESSION["szak"] = $row[7];
     $_SESSION["kep"] = $row[8];
+    $_SESSION["hely"] = $row[9];
+    $_SESSION["leiras"] = $row[10];
 
     $_SESSION["titulus"] = "ado";
     header("Location: ../fooldal.php");

@@ -85,6 +85,9 @@ if ($stmt->execute()) {
 echo("Hiba történt a mentésben". $stmt->error);
 
 }
+$sql="SELECT idopontok from idopontok";
+$result = $conn->query($sql);
+
 
 
 }
