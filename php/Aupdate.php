@@ -20,10 +20,12 @@ if ($conn->connect_error) {
     die("Kapcsolódási hiba: " . $conn->connect_error);
 }
 
-function hiba_log($data) {
+function hiba_log($data)
+{
     $output = $data;
-    if (is_array($output)) $output = implode(',', $output);
-    error_log($output); 
+    if (is_array($output))
+        $output = implode(',', $output);
+    error_log($output);
 }
 
 $checkUser = $conn->prepare("SELECT * FROM adok WHERE felhasznalonev = ?");
@@ -48,7 +50,7 @@ foreach ($mezok as $mezo) {
 }
 
 
-$cel_fajl = $userData["kep"]; 
+$cel_fajl = $userData["kep"];
 
 if (isset($_FILES["kepfeltoltes"]) && $_FILES["kepfeltoltes"]["error"] == UPLOAD_ERR_OK) {
     $eleresi_ut = "../adoprofilkepek/";
@@ -99,7 +101,7 @@ try {
     );
 
     if ($stmt->execute()) {
-        
+
         $_SESSION["vezeteknev"] = $updateData['vezeteknev'];
         $_SESSION["keresztnev"] = $updateData['keresztnev'];
         $_SESSION["email"] = $updateData['email'];
@@ -108,7 +110,7 @@ try {
         $_SESSION["hely"] = $updateData['hely'];
         $_SESSION["leiras"] = $updateData['leiras'];
         $_SESSION["kep"] = $cel_fajl;
-        
+
         $_SESSION['siker'] = "Sikeres frissítés!";
     } else {
         $_SESSION['hiba'] = "Adatbázis hiba: " . $stmt->error;

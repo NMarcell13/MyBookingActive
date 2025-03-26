@@ -50,9 +50,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $ado = $_SESSION['felhasznalo'];
-    $false="false";
+    $false = "false";
 
-    $stmt->bind_param("sss", $ado,  $idopont, $false);
+    $stmt->bind_param("sss", $ado, $idopont, $false);
 
     if ($stmt->execute()) {
         header('Location: foglalo.php');
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Hiba történt a mentésben: " . $stmt->error;
     }
 
-    
+
 }
 
 

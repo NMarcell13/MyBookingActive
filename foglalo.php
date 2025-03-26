@@ -86,7 +86,7 @@
     .book-button:hover {
       background-color: #0056b3;
     }
-    
+
     .time-buttons {
       margin-bottom: 1.5rem;
     }
@@ -100,78 +100,79 @@
 
 <body>
   <?php
-   $servername = "192.168.1.45";
-   $username = "mybooking";
-   $password = "mybooking";
-   $dbname = "mybooking";
-   session_start();
-   $conn = new mysqli($servername, $username, $password, $dbname);
- 
- 
- 
-   if ($conn->connect_error) {
-     die("Kapcsolódási hiba: " . $conn->connect_error);
-   }
- 
-   $_add_hidden = "hidden";
-   $_add_disabled = "";
-   $_foglalt_hidden="hidden";
- 
-   if ($_SESSION["titulus"] == "admin") {
-     $adatprofil = "adminprofil.php";
-     $_add_hidden = "";
-     $_add_disabled = "";
-     $_foglalt_hidden="";
- 
- 
-   } elseif ($_SESSION["titulus"] == "ugyfel") {
-     $adatprofil = "profil.php";
-     $_add_hidden = "hidden";
-     $_add_disabled = "";
-     $_foglalt_hidden="";
- 
-   } elseif ($_SESSION["titulus"] == "ado") {
-     $adatprofil = "adoprofil.php";
-     $_foglalt_hidden="hidden";
-     
- 
- 
-   }
- 
-   if (isset($_POST["nev"])) {
+  $servername = "192.168.1.45";
+  $username = "mybooking";
+  $password = "mybooking";
+  $dbname = "mybooking";
+  session_start();
+  $conn = new mysqli($servername, $username, $password, $dbname);
+
+
+
+  if ($conn->connect_error) {
+    die("Kapcsolódási hiba: " . $conn->connect_error);
+  }
+
+  $_add_hidden = "hidden";
+  $_add_disabled = "";
+  $_foglalt_hidden = "hidden";
+
+  if ($_SESSION["titulus"] == "admin") {
+    $adatprofil = "adminprofil.php";
+    $_add_hidden = "";
+    $_add_disabled = "";
+    $_foglalt_hidden = "";
+
+
+  } elseif ($_SESSION["titulus"] == "ugyfel") {
+    $adatprofil = "profil.php";
+    $_add_hidden = "hidden";
+    $_add_disabled = "";
+    $_foglalt_hidden = "";
+
+  } elseif ($_SESSION["titulus"] == "ado") {
+    $adatprofil = "adoprofil.php";
+    $_foglalt_hidden = "hidden";
+
+
+
+  }
+
+  if (isset($_POST["nev"])) {
     $_SESSION["nev"] = $_POST["nev"];
-   }
- 
-   $sql = "SELECT * FROM adok WHERE felhasznalonev = '" . $_SESSION["nev"] . "'";
+  }
+
+  $sql = "SELECT * FROM adok WHERE felhasznalonev = '" . $_SESSION["nev"] . "'";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     $row = mysqli_fetch_assoc($result);
-    
-    
-    $_SESSION["kepecske"] = trim($row['kep'], '\.\.\/');;
+
+
+    $_SESSION["kepecske"] = trim($row['kep'], '\.\.\/');
+    ;
     $_SESSION["leiras"] = $row["leiras"];
     $_SESSION["telszam"] = $row["telszam"];
     $_SESSION["email"] = $row["email"];
     $_SESSION["hely"] = $row["hely"];
 
-  
+
   }
 
   if ($_SESSION["titulus"] == "ado") {
     if ($_SESSION["felhasznalo"] == $_SESSION["nev"]) {
       $_add_hidden = "";
       $_add_disabled = "disabled";
-      
+
     }
-    
+
 
   }
-  
-    
-  
 
 
-  
+
+
+
+
   ?>
 
 
@@ -193,7 +194,7 @@
             <li><a class="dropdown-item" href="<?php echo $adatprofil; ?>">Adatok</a></li>
             <li><a class="dropdown-item" href="idopontok.php" <?php echo $_foglalt_hidden; ?>>Foglalt Időpontok</a></li>
             <li><a class="dropdown-item" href="logout.php">Kijelentkezés</a></li>
-           
+
           </ul>
         </div>
       </div>
@@ -224,26 +225,27 @@
               <?php
               $sql = "SELECT idopontok FROM idopontok WHERE ado = '" . $_SESSION["nev"] . "'";
               $result = $conn->query($sql);
-              
-              if ($result->num_rows > 0) {
-                  echo "<div class='time-buttons d-flex flex-wrap'>";
-                  while ($row = $result->fetch_assoc()) {
 
-                      echo "<button type='button' class='btn btn-outline-primary time-slot-btn' onclick='selectTimeSlot(this)' name='selected_time' value='" . $row["idopontok"] . "'>" . $row["idopontok"] . "</button>";
-                  }
-                  echo "</div>";
-                  echo "<input type='hidden' id='selected_time_input' name='selected_time_input'>";
+              if ($result->num_rows > 0) {
+                echo "<div class='time-buttons d-flex flex-wrap'>";
+                while ($row = $result->fetch_assoc()) {
+
+                  echo "<button type='button' class='btn btn-outline-primary time-slot-btn' onclick='selectTimeSlot(this)' name='selected_time' value='" . $row["idopontok"] . "'>" . $row["idopontok"] . "</button>";
+                }
+                echo "</div>";
+                echo "<input type='hidden' id='selected_time_input' name='selected_time_input'>";
               } else {
-                  echo "<p>Nincs még időpont feltöltve.</p>";
+                echo "<p>Nincs még időpont feltöltve.</p>";
               }
               ?>
               <br>
 
               <input type="hidden" name="ado_username" value="<?php echo $nev; ?>">
-              <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont foglalása</button>
+              <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont
+                foglalása</button>
 
-              
-              
+
+
 
           </form>
         </div>
@@ -260,20 +262,20 @@
       </div>
     </div>
   </div>
-  
+
   <script>
     function selectTimeSlot(button) {
       const buttons = document.querySelectorAll('.time-slot-btn');
       buttons.forEach(btn => btn.classList.remove('btn-primary'));
       buttons.forEach(btn => btn.classList.add('btn-outline-primary'));
-      
+
       button.classList.remove('btn-outline-primary');
       button.classList.add('btn-primary');
-      
+
       document.getElementById('selected_time_input').value = button.value;
     }
 
-    
+
   </script>
   <?php ?>
 

@@ -89,18 +89,22 @@
           <div class="card-body p-4">
             <div class="row align-items-center">
               <div class="col-md-8">
-                <h2 class="card-title mb-3"> <strong>[Reklámblokk]</strong> Mátészalkai Szakképzési Centrum Gépészeti Technikum és Kollégium</h2>
+                <h2 class="card-title mb-3"> <strong>[Reklámblokk]</strong> Mátészalkai Szakképzési Centrum Gépészeti
+                  Technikum és Kollégium</h2>
                 <p class="card-text">A <strong>SZAKÉRTELEM</strong> nálunk kezdődik.</p>
                 <ul class="list-unstyled">
-                  <li><i class="bi bi-check-circle-fill text-primary me-2"></i>5 éves képzés, mely 2 év ágazati alapoktatásból és 3 év szakirányú oktatásból áll.</li>
-                  <li><i class="bi bi-check-circle-fill text-primary me-2"></i>A jelentkezéskor csak ágazatot kell választanod, a konkrét szakmára felkészítő szakirányú oktatás a harmadik évtől kezdődik.</li>
-                  <li><i class="bi bi-check-circle-fill text-primary me-2"></i>A technikum egyesíti a gimnázium és a szakmatanulás előnyeit.</li>
+                  <li><i class="bi bi-check-circle-fill text-primary me-2"></i>5 éves képzés, mely 2 év ágazati
+                    alapoktatásból és 3 év szakirányú oktatásból áll.</li>
+                  <li><i class="bi bi-check-circle-fill text-primary me-2"></i>A jelentkezéskor csak ágazatot kell
+                    választanod, a konkrét szakmára felkészítő szakirányú oktatás a harmadik évtől kezdődik.</li>
+                  <li><i class="bi bi-check-circle-fill text-primary me-2"></i>A technikum egyesíti a gimnázium és a
+                    szakmatanulás előnyeit.</li>
                 </ul>
-                <a href="https://mateszalka-gepeszeti.www.intezmeny.edir.hu/" target="_blank" class="btn btn-primary mt-3">Érdekel</a>
+                <a href="https://mateszalka-gepeszeti.www.intezmeny.edir.hu/" target="_blank"
+                  class="btn btn-primary mt-3">Érdekel</a>
               </div>
               <div class="col-md-4 text-center">
-                <img src="kepek/gepesz.png" alt="gepeszlogo" class="img-fluid"
-                  style="max-width: 300px;">
+                <img src="kepek/gepesz.png" alt="gepeszlogo" class="img-fluid" style="max-width: 300px;">
               </div>
             </div>
           </div>

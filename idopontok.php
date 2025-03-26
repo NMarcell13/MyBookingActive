@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  
+
   <link rel="shortcut icon" href="kepek/MyBookinglco.ico" type="image/x-icon">
   <title>Főoldal - MyBooking</title>
   <style>
@@ -87,7 +87,7 @@
     .book-button:hover {
       background-color: #0056b3;
     }
-    
+
     .time-buttons {
       margin-bottom: 1.5rem;
     }
@@ -142,37 +142,37 @@
 
   <br>
 
-  
+
 
   <div class="time-slots">
-          <h3 class="mb-4">Foglalt Időpontok : </h3>
-          <form method="POST" action="foglalas.php">
-            <div class="row">
-              <label for="date">Időpontok:</label>
-              <?php
-              $sql = "SELECT idopontok FROM idopontok WHERE ado = '" . $_SESSION["nev"] . "'";
-              $result = $conn->query($sql);
-              
-              if ($result->num_rows > 0) {
-                  echo "<div class='time-buttons d-flex flex-wrap'>";
-                  while ($row = $result->fetch_assoc()) {
+    <h3 class="mb-4">Foglalt Időpontok : </h3>
+    <form method="POST" action="foglalas.php">
+      <div class="row">
+        <label for="date">Időpontok:</label>
+        <?php
+        $sql = "SELECT idopontok FROM idopontok WHERE ado = '" . $_SESSION["nev"] . "'";
+        $result = $conn->query($sql);
 
-                      echo "<button type='button' class='btn btn-outline-primary time-slot-btn' onclick='selectTimeSlot(this)' name='selected_time' value='" . $row["idopontok"] . "'>" . $row["idopontok"] . "</button>";
-                  }
-                  echo "</div>";
-                  echo "<input type='hidden' id='selected_time_input' name='selected_time_input'>";
-              } else {
-                  echo "<p>Nincs még időpont feltöltve.</p>";
-              }
-              ?>
-              <br>
+        if ($result->num_rows > 0) {
+          echo "<div class='time-buttons d-flex flex-wrap'>";
+          while ($row = $result->fetch_assoc()) {
 
-              <input type="hidden" name="ado_username" value="<?php echo $nev; ?>">
-              <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont foglalása</button>
-              <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont lemondása</button>
+            echo "<button type='button' class='btn btn-outline-primary time-slot-btn' onclick='selectTimeSlot(this)' name='selected_time' value='" . $row["idopontok"] . "'>" . $row["idopontok"] . "</button>";
+          }
+          echo "</div>";
+          echo "<input type='hidden' id='selected_time_input' name='selected_time_input'>";
+        } else {
+          echo "<p>Nincs még időpont feltöltve.</p>";
+        }
+        ?>
+        <br>
 
-          </form>
-        </div>
+        <input type="hidden" name="ado_username" value="<?php echo $nev; ?>">
+        <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont foglalása</button>
+        <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont lemondása</button>
+
+    </form>
+  </div>
 
 
 
@@ -184,10 +184,10 @@
       const buttons = document.querySelectorAll('.time-slot-btn');
       buttons.forEach(btn => btn.classList.remove('btn-primary'));
       buttons.forEach(btn => btn.classList.add('btn-outline-primary'));
-      
+
       button.classList.remove('btn-outline-primary');
       button.classList.add('btn-primary');
-      
+
       document.getElementById('selected_time_input').value = button.value;
     }
   </script>
@@ -197,8 +197,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
     crossorigin="anonymous"></script>
-  
-  
+
+
 </body>
 
 </html>
