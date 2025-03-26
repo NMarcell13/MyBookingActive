@@ -43,15 +43,16 @@ if ($_SESSION["titulus"] == "ado") {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idopont = $_POST['ido_plus'];
-    $stmt = $conn->prepare("INSERT INTO idopontok (ado, idopontok) VALUES (?, ?)");
+    $stmt = $conn->prepare("INSERT INTO idopontok (ado, idopontok, foglalt) VALUES (?, ?, ?)");
 
     if ($stmt === false) {
         die("Hiba van a lekérdezésben: " . $conn->error);
     }
 
     $ado = $_SESSION['felhasznalo'];
+    $false="false";
 
-    $stmt->bind_param("ss", $ado,  $idopont);
+    $stmt->bind_param("sss", $ado,  $idopont, $false);
 
     if ($stmt->execute()) {
         header('Location: foglalo.php');

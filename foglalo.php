@@ -115,20 +115,25 @@
  
    $_add_hidden = "hidden";
    $_add_disabled = "";
+   $_foglalt_hidden="hidden";
  
    if ($_SESSION["titulus"] == "admin") {
      $adatprofil = "adminprofil.php";
      $_add_hidden = "";
      $_add_disabled = "";
+     $_foglalt_hidden="";
  
  
    } elseif ($_SESSION["titulus"] == "ugyfel") {
      $adatprofil = "profil.php";
      $_add_hidden = "hidden";
      $_add_disabled = "";
+     $_foglalt_hidden="";
  
    } elseif ($_SESSION["titulus"] == "ado") {
      $adatprofil = "adoprofil.php";
+     $_foglalt_hidden="hidden";
+     
  
  
    }
@@ -156,8 +161,14 @@
     if ($_SESSION["felhasznalo"] == $_SESSION["nev"]) {
       $_add_hidden = "";
       $_add_disabled = "disabled";
+      
     }
+    
+
   }
+  
+    
+  
 
 
   
@@ -180,7 +191,9 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="<?php echo $adatprofil; ?>">Adatok</a></li>
+            <li><a class="dropdown-item" href="idopontok.php" <?php echo $_foglalt_hidden; ?>>Foglalt Időpontok</a></li>
             <li><a class="dropdown-item" href="logout.php">Kijelentkezés</a></li>
+           
           </ul>
         </div>
       </div>
@@ -205,7 +218,7 @@
       <div class="col-md-8">
         <div class="time-slots">
           <h3 class="mb-4">Válasszon időpontot</h3>
-          <form method="POST" action="foglalas.php">
+          <form method="POST" action="foglalas2.php">
             <div class="row">
               <label for="date">Időpont:</label>
               <?php
@@ -228,11 +241,14 @@
 
               <input type="hidden" name="ado_username" value="<?php echo $nev; ?>">
               <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont foglalása</button>
-              <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont lemondása</button>
+
+              
+              
 
           </form>
         </div>
       </div>
+      <br>
       <div class="col-md-4" <?php echo $_add_hidden ?>>
         <div class="time-slots">
           <form action="foglalas.php" method="post">
@@ -256,7 +272,10 @@
       
       document.getElementById('selected_time_input').value = button.value;
     }
+
+    
   </script>
+  <?php ?>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
