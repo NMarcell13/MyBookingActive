@@ -234,6 +234,7 @@
                 }
                 echo "</div>";
                 echo "<input type='hidden' id='selected_time_input' name='selected_time_input'>";
+                echo "<input type='hidden' id='adoneve' name='adoneve' value'" . $_SESSION["nev"] . "'>";
               } else {
                 echo "<p>Nincs még időpont feltöltve.</p>";
               }

@@ -159,14 +159,14 @@
                                 <h5>Szakterület:</h5>
                                 <select name="szak" id="szak" class="form-control inp" disabled>
                                     <option value="" disabled selected><?php echo $_SESSION["szak"] ?></option>
-                                    <option value="fodrasz">Fodrász</option>
-                                    <option value="orvos">Orvos</option>
-                                    <option value="buli">Buli</option>
-                                    <option value="tanar">Tanár</option>
-                                    <option value="utazas">Utazási asszisztens</option>
-                                    <option value="tech">Tech</option>
-                                    <option value="sport">Sport szakértő</option>
-                                    <option value="auto">Autószerelő</option>
+                                    <option value="Fodrász">Fodrász</option>
+                                    <option value="Orvos">Orvos</option>
+                                    <option value="Buli szervező">Buli</option>
+                                    <option value="Tanár">Tanár</option>
+                                    <option value="Utazási asszisztens">Utazási asszisztens</option>
+                                    <option value="Tech">Tech</option>
+                                    <option value="Sport szakértő">Sport szakértő</option>
+                                    <option value="Autószerelő">Autószerelő</option>
                                 </select>
 
                             </div>

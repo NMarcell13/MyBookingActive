@@ -58,14 +58,14 @@
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
       <?php
       $services = [
-        ['name' => 'Fodrászat', 'image' => 'fodraszat.jpg', 'link' => 'szolgaltatasok/orvosirendelo.php', 'szak' => 'fodrasz'],
-        ['name' => 'Orvosi rendelő', 'image' => 'orvosi.jpg', 'link' => 'szolgaltatasok/orvosirendelo.php', 'szak' => 'orvos'],
-        ['name' => 'Buli', 'image' => 'buli.jpg', 'link' => 'szolgaltatasok/orvosirendelo.php', 'szak' => 'buli'],
-        ['name' => 'Tanulás', 'image' => 'tanulas.jpg', 'link' => 'szolgaltatasok/orvosirendelo.php', 'szak' => 'tanar'],
-        ['name' => 'Utazás', 'image' => 'utazas.jpg', 'link' => 'szolgaltatasok/orvosirendelo.php', 'szak' => 'utazas'],
-        ['name' => 'Technológia', 'image' => 'tech.jpg', 'link' => 'szolgaltatasok/orvosirendelo.php', 'szak' => 'tech'],
-        ['name' => 'Sport', 'image' => 'sport.jpg', 'link' => 'szolgaltatasok/orvosirendelo.php', 'szak' => 'sport'],
-        ['name' => 'Autószerelő', 'image' => 'autoszerlo.jpg', 'link' => 'szolgaltatasok/orvosirendelo.php', 'szak' => 'auto']
+        ['name' => 'Fodrászat', 'image' => 'fodraszat.jpg', 'link' => 'szolgaltatasok/orvosirendelo.php', 'szak' => 'Fodrász'],
+        ['name' => 'Orvosi rendelő', 'image' => 'orvosi.jpg', 'link' => 'szolgaltatasok/orvosirendelo.php', 'szak' => 'Orvos'],
+        ['name' => 'Buli', 'image' => 'buli.jpg', 'link' => 'szolgaltatasok/orvosirendelo.php', 'szak' => 'Buli szervező'],
+        ['name' => 'Tanulás', 'image' => 'tanulas.jpg', 'link' => 'szolgaltatasok/orvosirendelo.php', 'szak' => 'Tanár'],
+        ['name' => 'Utazás', 'image' => 'utazas.jpg', 'link' => 'szolgaltatasok/orvosirendelo.php', 'szak' => 'Utazási asszisztens'],
+        ['name' => 'Technológia', 'image' => 'tech.jpg', 'link' => 'szolgaltatasok/orvosirendelo.php', 'szak' => 'Tech'],
+        ['name' => 'Sport', 'image' => 'sport.jpg', 'link' => 'szolgaltatasok/orvosirendelo.php', 'szak' => 'Sport szakértő'],
+        ['name' => 'Autószerelő', 'image' => 'autoszerlo.jpg', 'link' => 'szolgaltatasok/orvosirendelo.php', 'szak' => 'Autószerelő']
       ];
 
       foreach ($services as $service) {
