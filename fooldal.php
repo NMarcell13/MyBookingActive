@@ -45,6 +45,7 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="<?php echo $adatprofil ?>">Adatok</a></li>
+            <li><a class="dropdown-item" href="idopontok.php" <?php echo $_foglalt_hidden; ?>>Foglalt Időpontok</a></li>
             <li><a class="dropdown-item" href="logout.php">Kijelentkezés</a></li>
           </ul>
         </div>

@@ -20,7 +20,8 @@ if ($conn->connect_error) {
     die("Kapcsolódási hiba: " . $conn->connect_error);
 }
 
-function hiba_log($data) {
+function hiba_log($data)
+{
     error_log(print_r($data, true));
 }
 

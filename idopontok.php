@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
   <link rel="shortcut icon" href="kepek/MyBookinglco.ico" type="image/x-icon">
   <title>Főoldal - MyBooking</title>
   <style>
@@ -84,9 +84,7 @@
       transition: background-color 0.3s;
     }
 
-    .book-button:hover {
-      background-color: #0056b3;
-    }
+    
 
     .time-buttons {
       margin-bottom: 1.5rem;
@@ -95,13 +93,51 @@
     .time-slot-btn {
       margin-bottom: 0.5rem;
       margin-right: 0.5rem;
+      position: relative;
+    }
+
+    /* New styles for hover effect */
+    .time-slot-btn:hover {
+      border: 2px solid #dc3545 !important;
+      background-color: #dc3545;
+    }
+
+    .delete-icon {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: white;
+      border-radius: 50%;
+      padding: 3px;
+      color: #dc3545;
+      display: none;
+      cursor: pointer;
+      z-index: 10;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .time-slot-btn:hover .delete-icon {
+      display: block;
     }
   </style>
 
 </head>
 
 <body>
-  <?php session_start();
+  <?php
+
+  $servername = "192.168.1.45";
+  $username = "mybooking";
+  $password = "mybooking";
+  $dbname = "mybooking";
+  session_start();
+  $conn = new mysqli($servername, $username, $password, $dbname);
+
+
+
+  if ($conn->connect_error) {
+    die("Kapcsolódási hiba: " . $conn->connect_error);
+  }
 
   if ($_SESSION["titulus"] == "admin") {
     $adatprofil = "adminprofil.php";
@@ -114,6 +150,8 @@
   if ($_SESSION["titulus"] == "ado") {
     $adatprofil = "adoprofil.php";
   }
+
+  
 
   ?>
 
@@ -133,6 +171,7 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="<?php echo $adatprofil ?>">Adatok</a></li>
+            <li><a class="dropdown-item" href="idopontok.php" <?php echo $_foglalt_hidden; ?>>Foglalt Időpontok</a></li>
             <li><a class="dropdown-item" href="logout.php">Kijelentkezés</a></li>
           </ul>
         </div>
@@ -142,22 +181,27 @@
 
   <br>
 
-
-
   <div class="time-slots">
     <h3 class="mb-4">Foglalt Időpontok : </h3>
     <form method="POST" action="foglalas.php">
       <div class="row">
         <label for="date">Időpontok:</label>
+        <br>
+        <br>
         <?php
-        $sql = "SELECT idopontok FROM idopontok WHERE ado = '" . $_SESSION["nev"] . "'";
+        $sql = "SELECT melyik_idopont FROM foglalt_idopontok WHERE ki = '" . $_SESSION["felhasznalo"] . "'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
           echo "<div class='time-buttons d-flex flex-wrap'>";
           while ($row = $result->fetch_assoc()) {
-
-            echo "<button type='button' class='btn btn-outline-primary time-slot-btn' onclick='selectTimeSlot(this)' name='selected_time' value='" . $row["idopontok"] . "'>" . $row["idopontok"] . "</button>";
+            $idopont = $row["melyik_idopont"];
+            $kinel=$row["kinel"];
+            echo "<div class='position-relative'>";
+            echo "<button type='button' class='btn btn-outline-primary time-slot-btn' onclick='selectTimeSlot(this)' name='selected_time' value='" . $idopont . "'>" . $idopont;
+            echo "<span class='delete-icon' onclick='deleteTimeSlot(event, \"" . $idopont . "\")'><i class='bi bi-trash-fill'></i></span>";
+            echo "</button>";
+            echo "</div>";
           }
           echo "</div>";
           echo "<input type='hidden' id='selected_time_input' name='selected_time_input'>";
@@ -166,19 +210,11 @@
         }
         ?>
         <br>
-
-        <input type="hidden" name="ado_username" value="<?php echo $nev; ?>">
-        <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont foglalása</button>
-        <button type="submit" class="btn btn-primary w-100 mt-4" <?php echo $_add_disabled ?>>Időpont lemondása</button>
-
+        <br>
     </form>
   </div>
+  <br>
 
-
-
-
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
   <script>
     function selectTimeSlot(button) {
       const buttons = document.querySelectorAll('.time-slot-btn');
@@ -190,6 +226,20 @@
 
       document.getElementById('selected_time_input').value = button.value;
     }
+
+    function deleteTimeSlot(event, idopont) {
+      event.stopPropagation(); 
+      if (confirm('Biztosan törölni szeretné ezt az időpontot?')) {
+        <?php
+        
+        $update_sql = "UPDATE idopontok SET foglalt = 'false' 
+        WHERE ado = '$kinel' AND idopontok = '$selected_time' AND foglalt = 'true'";
+
+        $conn->query($update_sql);
+         ?>
+      }
+      
+    }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -197,8 +247,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
     crossorigin="anonymous"></script>
-
-
 </body>
 
 </html>

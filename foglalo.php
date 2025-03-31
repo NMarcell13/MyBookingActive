@@ -223,18 +223,21 @@
             <div class="row">
               <label for="date">Időpont:</label>
               <?php
-              $sql = "SELECT idopontok FROM idopontok WHERE ado = '" . $_SESSION["nev"] . "'";
+              $sql = "SELECT idopontok FROM idopontok WHERE ado = '" . $_SESSION["nev"] . "' AND foglalt='false'";
               $result = $conn->query($sql);
+              
+              
 
               if ($result->num_rows > 0) {
                 echo "<div class='time-buttons d-flex flex-wrap'>";
                 while ($row = $result->fetch_assoc()) {
+                  
 
-                  echo "<button type='button' class='btn btn-outline-primary time-slot-btn' onclick='selectTimeSlot(this)' name='selected_time' value='" . $row["idopontok"] . "'>" . $row["idopontok"] . "</button>";
+                  echo "<button type='button' class='btn btn-outline-primary time-slot-btn' onclick='selectTimeSlot(this)'   name='selected_time' value='" . $row["idopontok"] . "'>" . $row["idopontok"] . "</button>";
                 }
                 echo "</div>";
                 echo "<input type='hidden' id='selected_time_input' name='selected_time_input'>";
-                echo "<input type='hidden' id='adoneve' name='adoneve' value'" . $_SESSION["nev"] . "'>";
+                echo "<input type='hidden' id='adoneve' name='adoneve' value='" . $_SESSION["nev"] . "'>";
               } else {
                 echo "<p>Nincs még időpont feltöltve.</p>";
               }
