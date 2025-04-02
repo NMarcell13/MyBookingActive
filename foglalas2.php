@@ -38,19 +38,17 @@ if (isset($_POST['selected_time_input']) && isset($_POST['ado_username'])) {
         } else {
             echo "<script>alert('Hiba történt a foglalás során: " . $conn->error . "'); window.location.href='fooldal.php';</script>";
         }
-        
-    } 
-    else{
+
+    } else {
         echo "<script>alert('Ez az időpont foglalt'); window.location.href='foglalo.php';</script>";
 
     }
-    
 
 
 
 
-}
-else {
+
+} else {
     // Ha nincs kiválasztva időpont
     echo "<script>alert('Kérjük válasszon időpontot!'); window.location.href='fooldal.php';</script>";
 }

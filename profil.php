@@ -66,7 +66,8 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="profil.php">Adatok</a></li>
-                        <li><a class="dropdown-item" href="idopontok.php" <?php echo $_foglalt_hidden; ?>>Foglalt Időpontok</a></li>
+                        <li><a class="dropdown-item" href="idopontok.php" <?php echo $_foglalt_hidden; ?>>Foglalt
+                                Időpontok</a></li>
                         <li><a class="dropdown-item" href="index.html">Kijelentkezés</a></li>
                     </ul>
                 </div>

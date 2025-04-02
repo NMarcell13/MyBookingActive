@@ -93,6 +93,7 @@
     $adatprofil = "profil.php";
   } elseif ($_SESSION["titulus"] == "ado") {
     $adatprofil = "adoprofil.php";
+    $_foglalt_hidden = "hidden";
 
   }
 

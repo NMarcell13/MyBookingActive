@@ -8,7 +8,7 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
   <link rel="shortcut icon" href="kepek/MyBookinglco.ico" type="image/x-icon">
-  <title>Főoldal - MyBooking</title>
+  <title>Időpontok - MyBooking</title>
   <style>
     body {
       background-color: #f0f8ff;
@@ -63,6 +63,9 @@
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
       padding: 1.5rem;
+      margin-top: 20px;
+      margin-left: 20%;
+      margin-right: 20%;
     }
 
     .time-slot {
@@ -84,8 +87,6 @@
       transition: background-color 0.3s;
     }
 
-    
-
     .time-buttons {
       margin-bottom: 1.5rem;
     }
@@ -96,7 +97,6 @@
       position: relative;
     }
 
-    /* New styles for hover effect */
     .time-slot-btn:hover {
       border: 2px solid #dc3545 !important;
       background-color: #dc3545;
@@ -112,7 +112,7 @@
       color: #dc3545;
       display: none;
       cursor: pointer;
-      z-index: 10;
+      z-index: 100;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     }
 
@@ -120,40 +120,30 @@
       display: block;
     }
   </style>
-
 </head>
 
 <body>
   <?php
-
+  session_start();
   $servername = "192.168.1.45";
   $username = "mybooking";
   $password = "mybooking";
   $dbname = "mybooking";
-  session_start();
+
   $conn = new mysqli($servername, $username, $password, $dbname);
-
-
-
   if ($conn->connect_error) {
     die("Kapcsolódási hiba: " . $conn->connect_error);
   }
 
   if ($_SESSION["titulus"] == "admin") {
     $adatprofil = "adminprofil.php";
-
-  }
-  if ($_SESSION["titulus"] == "ugyfel") {
+  } elseif ($_SESSION["titulus"] == "ugyfel") {
     $adatprofil = "profil.php";
-
-  }
-  if ($_SESSION["titulus"] == "ado") {
+  } elseif ($_SESSION["titulus"] == "ado") {
     $adatprofil = "adoprofil.php";
   }
-
-  
-
   ?>
+
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light-blue">
     <div class="container">
@@ -166,12 +156,12 @@
         </a>
         <div class="nav-item dropdown">
           <a class="nav-link dropdown-toggle btn btn-outline-primary" href="#" id="navbarDropdown" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            <?php echo $_SESSION["vezeteknev"], " ", $_SESSION["keresztnev"] ?>
+            data-bs-toggle="dropdown">
+            <?php echo $_SESSION["vezeteknev"] . " " . $_SESSION["keresztnev"]; ?>
           </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="<?php echo $adatprofil ?>">Adatok</a></li>
-            <li><a class="dropdown-item" href="idopontok.php" <?php echo $_foglalt_hidden; ?>>Foglalt Időpontok</a></li>
+            <li><a class="dropdown-item" href="idopontok.php">Foglalt Időpontok</a></li>
             <li><a class="dropdown-item" href="logout.php">Kijelentkezés</a></li>
           </ul>
         </div>
@@ -182,71 +172,72 @@
   <br>
 
   <div class="time-slots">
-    <h3 class="mb-4">Foglalt Időpontok : </h3>
-    <form method="POST" action="foglalas.php">
-      <div class="row">
-        <label for="date">Időpontok:</label>
-        <br>
-        <br>
-        <?php
-        $sql = "SELECT melyik_idopont FROM foglalt_idopontok WHERE ki = '" . $_SESSION["felhasznalo"] . "'";
-        $result = $conn->query($sql);
+    <h3 class="text-center mb-4">Foglalt Időpontok</h3>
+    <div class="row">
+      <br>
+      <br>
+      <?php
+      $sql = "SELECT * FROM foglalt_idopontok WHERE ki = '" . $_SESSION["felhasznalo"] . "'";
+      $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
-          echo "<div class='time-buttons d-flex flex-wrap'>";
-          while ($row = $result->fetch_assoc()) {
-            $idopont = $row["melyik_idopont"];
-            $kinel=$row["kinel"];
-            echo "<div class='position-relative'>";
-            echo "<button type='button' class='btn btn-outline-primary time-slot-btn' onclick='selectTimeSlot(this)' name='selected_time' value='" . $idopont . "'>" . $idopont;
-            echo "<span class='delete-icon' onclick='deleteTimeSlot(event, \"" . $idopont . "\")'><i class='bi bi-trash-fill'></i></span>";
-            echo "</button>";
-            echo "</div>";
-          }
+      if ($result->num_rows > 0) {
+        echo "<div class='time-buttons d-flex flex-wrap'>";
+        while ($row = $result->fetch_assoc()) {
+          $sql_nev_lekerdezes = "SELECT * FROM adok WHERE felhasznalonev = '" . $row["kinel"] . "'";
+          $result_nev_lekerdezes = $conn->query($sql_nev_lekerdezes);
+          $row_nl = $result_nev_lekerdezes->fetch_assoc();
+          $kinel = $row["kinel"];
+          $idopont = $row["melyik_idopont"];
+          $ki = $row_nl["vezeteknev"] . " " . $row_nl["keresztnev"];
+
+          echo "<div class='position-relative' data-bs-toggle='tooltip' data-bs-placement='top' title='" . $ki . "'>";
+          echo "<button type='button' class='btn btn-outline-primary time-slot-btn' name='selected_time' value='" . $idopont . "'>" . $idopont;
+          echo "<span class='delete-icon' onclick='deleteTimeSlot(event, \"" . $idopont . "\" , \"" . $kinel . "\" , \"" . $_SESSION["felhasznalo"] . "\" )'><i class='bi bi-trash-fill'></i></span>";
+          echo "</button>";
           echo "</div>";
-          echo "<input type='hidden' id='selected_time_input' name='selected_time_input'>";
-        } else {
-          echo "<p>Nincs még időpont feltöltve.</p>";
         }
-        ?>
-        <br>
-        <br>
-    </form>
+        echo "</div>";
+      } else {
+        echo "<p>Nincs foglalt időpontod.</p>";
+      }
+      ?>
+      <br>
+      <br>
+    </div>
   </div>
   <br>
 
   <script>
-    function selectTimeSlot(button) {
-      const buttons = document.querySelectorAll('.time-slot-btn');
-      buttons.forEach(btn => btn.classList.remove('btn-primary'));
-      buttons.forEach(btn => btn.classList.add('btn-outline-primary'));
+    function deleteTimeSlot(event, idopont, kinel, ki) {
+      event.stopPropagation();
+      console.log('Időpont:', idopont, 'Kinel:', kinel, 'Ki:', ki);
 
-      button.classList.remove('btn-outline-primary');
-      button.classList.add('btn-primary');
-
-      document.getElementById('selected_time_input').value = button.value;
-    }
-
-    function deleteTimeSlot(event, idopont) {
-      event.stopPropagation(); 
       if (confirm('Biztosan törölni szeretné ezt az időpontot?')) {
-        <?php
-        
-        $update_sql = "UPDATE idopontok SET foglalt = 'false' 
-        WHERE ado = '$kinel' AND idopontok = '$selected_time' AND foglalt = 'true'";
-
-        $conn->query($update_sql);
-         ?>
+        fetch("php/idopont_torles_ugyfel.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: "idopont=" + encodeURIComponent(idopont) + "&kinel=" + encodeURIComponent(kinel) + "&ki=" + encodeURIComponent(ki)
+        })
+          .then(response => response.text())
+          .then(data => {
+            console.log('Response:', data);
+            if (data.trim() === "success") {
+              alert("Az időpont sikeresen törölve!");
+              location.reload();
+            } else {
+              alert("Hiba történt a törlés során.");
+            }
+          })
+          .catch(error => console.error("Hiba történt:", error));
       }
-      
     }
+
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-    crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

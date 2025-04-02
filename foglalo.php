@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
   <link rel="shortcut icon" href="kepek/MyBookinglco.ico" type="image/x-icon">
   <title>Időpontfoglalás - MyBooking</title>
   <style>
@@ -94,6 +95,31 @@
     .time-slot-btn {
       margin-bottom: 0.5rem;
       margin-right: 0.5rem;
+      position: relative;
+    }
+
+    .time-slot-btn:hover {
+      border: 2px solid #007bff !important;
+      background-color: #007bff;
+
+    }
+
+    .delete-icon {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: white;
+      border-radius: 50%;
+      padding: 3px;
+      color: #dc3545;
+      display: none;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .time-slot-btn:hover .delete-icon {
+      display: block;
     }
   </style>
 </head>
@@ -117,6 +143,7 @@
   $_add_disabled = "";
   $_foglalt_hidden = "hidden";
 
+
   if ($_SESSION["titulus"] == "admin") {
     $adatprofil = "adminprofil.php";
     $_add_hidden = "";
@@ -133,6 +160,8 @@
   } elseif ($_SESSION["titulus"] == "ado") {
     $adatprofil = "adoprofil.php";
     $_foglalt_hidden = "hidden";
+    $_add_disabled = "disabled";
+
 
 
 
@@ -162,6 +191,9 @@
     if ($_SESSION["felhasznalo"] == $_SESSION["nev"]) {
       $_add_hidden = "";
       $_add_disabled = "disabled";
+      $_foglalt_hidden = "hidden";
+
+
 
     }
 
@@ -223,17 +255,31 @@
             <div class="row">
               <label for="date">Időpont:</label>
               <?php
-              $sql = "SELECT idopontok FROM idopontok WHERE ado = '" . $_SESSION["nev"] . "' AND foglalt='false'";
+              $torlo_button = "";
+              $LEKERDEZES = "AND foglalt='false'";
+              if ($_SESSION["titulus"] == "ado" && $_SESSION["felhasznalo"] == $_SESSION["nev"]) {
+                $torlo_button = "<span class='delete-icon' onclick='deleteTimeSlot(event, \"" . $idopont_minden . "\", \"" . $ado_minden . "\")'><i class='bi bi-trash-fill'></i></span>";
+                $LEKERDEZES = "";
+              }
+              $sql = "SELECT idopontok FROM idopontok WHERE ado = '" . $_SESSION["nev"] . "' " . $LEKERDEZES . "";
               $result = $conn->query($sql);
-              
-              
+
+
 
               if ($result->num_rows > 0) {
                 echo "<div class='time-buttons d-flex flex-wrap'>";
                 while ($row = $result->fetch_assoc()) {
-                  
+                  $sql_minden = "SELECT * FROM idopontok WHERE ado = '" . $_SESSION["nev"] . "'";
+                  $result_midnen = $conn->query($sql_minden);
+                  $row_minden = $result_midnen->fetch_assoc();
+                  $ado_minden = $row_minden["ado"];
+                  $idopont_minden = $row_minden["idopontok"];
 
-                  echo "<button type='button' class='btn btn-outline-primary time-slot-btn' onclick='selectTimeSlot(this)'   name='selected_time' value='" . $row["idopontok"] . "'>" . $row["idopontok"] . "</button>";
+
+
+                  echo "<button type='button' class='btn btn-outline-primary time-slot-btn' onclick='selectTimeSlot(this)'   name='selected_time' value='" . $row["idopontok"] . "'>" . $row["idopontok"] . "";
+                  echo "$torlo_button";
+                  echo "</button>";
                 }
                 echo "</div>";
                 echo "<input type='hidden' id='selected_time_input' name='selected_time_input'>";
@@ -278,6 +324,38 @@
 
       document.getElementById('selected_time_input').value = button.value;
     }
+
+    function deleteTimeSlot(event, idopont, ki) {
+      event.stopPropagation();
+
+      if (!idopont || !ki) {
+        console.error("Hibás adatok küldése!", idopont, ki);
+        alert("Nem található az időpont vagy az azonosító.");
+        return;
+      }
+
+      if (confirm('Biztosan törölni szeretné ezt az időpontot?')) {
+        fetch("php/idopont_torles_ado.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: `idopont=${encodeURIComponent(idopont)}&ki=${encodeURIComponent(ki)}`
+        })
+          .then(response => response.text())
+          .then(data => {
+            console.log('Válasz a szervertől:', data);
+            if (data.trim() === "success") {
+              alert("Az időpont sikeresen törölve!");
+              location.reload();
+            } else {
+              alert("Hiba történt a törlés során: " + data);
+            }
+          })
+          .catch(error => console.error("Hiba történt:", error));
+      }
+    }
+
 
 
   </script>
