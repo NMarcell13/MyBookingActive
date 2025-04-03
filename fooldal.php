@@ -114,6 +114,44 @@
       </div>
     </div>
   </div>
+  <div class="container mt-5 mb-5">
+  <div class="row">
+    <div class="col-12">
+      <div class="card bg-light-blue">
+        <div class="card-body p-4">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <h2 class="card-title mb-3"><strong>Hogyan használd a MyBooking oldalt?</strong></h2>
+              <p class="card-text">Nézd meg az alábbi oktatóvideót, amely bemutatja az oldal használatát és a foglalási folyamatot. Segítségével könnyedén eligazodhatsz a MyBooking funkcióin.</p>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Regisztráció és bejelentkezés</li>
+                <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Szolgáltatások böngészése</li>
+                <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Időpontfoglalás lépései</li>
+                <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Foglalások kezelése</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <div class="position-relative rounded overflow-hidden" style="box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <video 
+                  id="tutorial-video" 
+                  class="w-100 rounded" 
+                  controls
+                  poster="kepek/video-thumbnail.jpg"
+                  style="max-height: 315px; object-fit: contain;"
+                >
+                  <source src="videos/tutorial.mp4" type="video/mp4">
+                  A böngésződ nem támogatja a videó lejátszását.
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
 
 
 
