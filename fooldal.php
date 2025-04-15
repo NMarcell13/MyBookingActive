@@ -29,6 +29,7 @@
   }
   if ($_SESSION["titulus"] == "ugyfel") {
     $adatprofil = "profil.php";
+    $idopontjaim_hidden = "hidden";
 
   }
   if ($_SESSION["titulus"] == "ado") {
@@ -55,6 +56,7 @@
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="<?php echo $adatprofil ?>">Adatok</a></li>
             <li><a class="dropdown-item" href="idopontok.php" <?php echo $_foglalt_hidden; ?>>Foglalt Időpontok</a></li>
+            <li><a class="dropdown-item" href="idopontok_ado.php" <?php echo $idopontjaim_hidden; ?>>Időpontjaim</a></li>
             <li><a class="dropdown-item" href="logout.php">Kijelentkezés</a></li>
           </ul>
         </div>
@@ -158,6 +160,30 @@
     </div>
   </div>
 </div>
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+      <div class="col-12">
+        <div class="card bg-light-blue">
+          <div class="card-body p-4">
+            <div class="row align-items-center">
+              <div class="col-md-8">
+                <h2 class="card-title mb-3">Vizsga</h2>
+                <p class="card-text">Linkek:</p>
+                <ul class="list-unstyled">
+                  <li><a href="https://docs.google.com/document/d/1NEzA-gUEzlTAeqW21bY6Kaxo6sZjpd-0W8h_U5Dl88w/edit?usp=sharing" target="_blank">Tesztelési dokumentáció</a></li>
+                  <li><a href="https://docs.google.com/document/d/1LlX0c7HoC1S8ahGMw5YZUyJcU4s3WlZUl31PWtohal0/edit?usp=sharing" target="_blank">Felhasználói dokumentáció</a></li>
+                  <li><a href="https://docs.google.com/document/d/1ir9oCGPBqR7GoSpyg51Xl8qYzdvXB2_FmXTGTgzCcEo/edit?usp=sharing" target="_blank">Fejlesztői dokumentáció</a></li>
+                  <li><a href="https://www.canva.com/design/DAGjdphsgaU/T0WZT4oAWNs1pNTL1KjSwg/view?utm_content=DAGjdphsgaU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h8a39f8735b" target="_blank">PPT</a></li>
+                  
+                </ul>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   
 
