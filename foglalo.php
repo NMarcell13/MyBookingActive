@@ -263,29 +263,24 @@
             <div class="row">
               <label for="date">Időpont:</label>
               <?php
-              $torlo_button = "";
               $LEKERDEZES = "AND foglalt='false'";
               if ($_SESSION["titulus"] == "ado" && $_SESSION["felhasznalo"] == $_SESSION["nev"]) {
-                $torlo_button = "<span class='delete-icon' onclick='deleteTimeSlot(event, \"" . $idopont_minden . "\", \"" . $ado_minden . "\")'><i class='bi bi-trash-fill'></i></span>";
                 $LEKERDEZES = "";
               }
+              
               $sql = "SELECT idopontok FROM idopontok WHERE ado = '" . $_SESSION["nev"] . "' " . $LEKERDEZES . "";
               $result = $conn->query($sql);
-
-
 
               if ($result->num_rows > 0) {
                 echo "<div class='time-buttons d-flex flex-wrap'>";
                 while ($row = $result->fetch_assoc()) {
-                  $sql_minden = "SELECT * FROM idopontok WHERE ado = '" . $_SESSION["nev"] . "'";
-                  $result_midnen = $conn->query($sql_minden);
-                  $row_minden = $result_midnen->fetch_assoc();
-                  $ado_minden = $row_minden["ado"];
-                  $idopont_minden = $row_minden["idopontok"];
+                  $torlo_button = "";
+                  if ($_SESSION["titulus"] == "ado" && $_SESSION["felhasznalo"] == $_SESSION["nev"]) {
+                    // Javítva: Az aktuális időpont értékét adjuk át
+                    $torlo_button = "<span class='delete-icon' onclick='deleteTimeSlot(event, \"" . $row["idopontok"] . "\", \"" . $_SESSION["nev"] . "\")'><i class='bi bi-trash-fill'></i></span>";
+                  }
 
-
-
-                  echo "<button type='button' class='btn btn-outline-primary time-slot-btn' onclick='selectTimeSlot(this)'   name='selected_time' value='" . $row["idopontok"] . "'>" . $row["idopontok"] . "";
+                  echo "<button type='button' class='btn btn-outline-primary time-slot-btn' onclick='selectTimeSlot(this)' name='selected_time' value='" . $row["idopontok"] . "'>" . $row["idopontok"] . "";
                   echo "$torlo_button";
                   echo "</button>";
                 }
