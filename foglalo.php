@@ -4,11 +4,11 @@
 <head>
   <!-- Egyéb meta tagek... -->
   <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#000000">
-    <!-- Az iOS támogatáshoz: -->
-    <link rel="apple-touch-icon" href="/icon-192x192.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="theme-color" content="#000000">
+  <!-- Az iOS támogatáshoz: -->
+  <link rel="apple-touch-icon" href="/icon-192x192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -267,7 +267,7 @@
               if ($_SESSION["titulus"] == "ado" && $_SESSION["felhasznalo"] == $_SESSION["nev"]) {
                 $LEKERDEZES = "";
               }
-              
+
               $sql = "SELECT idopontok FROM idopontok WHERE ado = '" . $_SESSION["nev"] . "' " . $LEKERDEZES . "";
               $result = $conn->query($sql);
 

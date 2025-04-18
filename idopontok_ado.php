@@ -2,13 +2,13 @@
 <html lang="hu">
 
 <head>
-  
+
   <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#000000">
-    
-    <link rel="apple-touch-icon" href="/icon-192x192.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="theme-color" content="#000000">
+
+  <link rel="apple-touch-icon" href="/icon-192x192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -196,10 +196,10 @@
           $row_nl = $result_foglalo_nev_lekerdezes->fetch_assoc();
           $kinel = $row_nl["ki"];
           $idopont = $row["idopontok"];
-          $sql_teljes_foglalo_lekerdezes="SELECT * FROM ugyfelek WHERE felhasznalonev ='" . $kinel . "'";
+          $sql_teljes_foglalo_lekerdezes = "SELECT * FROM ugyfelek WHERE felhasznalonev ='" . $kinel . "'";
           $result_teljes_foglalo_nev_lekerdezes = $conn->query($sql_teljes_foglalo_nev_lekerdezes);
-          $nevecske_row= $result_teljes_foglalo_nev_lekerdezes->fetch_assoc();
-          $teljes_nev=$nevecske_row["vezeteknev"]." ".$nevecske_row["keresztnev"];
+          $nevecske_row = $result_teljes_foglalo_nev_lekerdezes->fetch_assoc();
+          $teljes_nev = $nevecske_row["vezeteknev"] . " " . $nevecske_row["keresztnev"];
 
           echo "<div class='position-relative' data-bs-toggle='tooltip' data-bs-placement='top' title='" . $kinel . "'>";
           echo "<button type='button' class='btn btn-outline-primary time-slot-btn' name='selected_time' value='" . $idopont . "'>" . $idopont;
