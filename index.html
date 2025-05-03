@@ -21,6 +21,11 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            padding: 20px;
+        }
+
+        .container-fluid {
+            max-width: 1000px;
         }
 
         .login-card {
@@ -29,7 +34,16 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             padding: 2rem;
             width: 100%;
-            max-width: 400px;
+            height: 100%;
+        }
+
+        .info-card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            height: 100%;
         }
 
         .logo-circle {
@@ -52,42 +66,112 @@
             background-color: #0056b3;
             border-color: #0056b3;
         }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #e6f3ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 767px) {
+            .container-fluid {
+                flex-direction: column-reverse;
+            }
+            
+            .info-card, .login-card {
+                margin-bottom: 20px;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div class="login-card">
-        <div class="logo-circle">
-            <img src="kepek/MyBooking.png" alt="MyBooking Logo" height="60" />
-        </div>
-        <h2 class="text-center mb-4"> Ügyfél <br> Bejelentkezés</h2>
-        <form method="POST" action="php/login.php">
-            <div class="mb-3">
-                <label for="username" class="form-label">Felhasználónév:</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Felhasználónév"
-                    required>
+    <div class="container-fluid">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="login-card">
+                    <div class="logo-circle">
+                        <img src="kepek/MyBooking.png" alt="MyBooking Logo" height="60" />
+                    </div>
+                    <h2 class="text-center mb-4"> Ügyfél <br> Bejelentkezés</h2>
+                    <form method="POST" action="php/login.php">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Felhasználónév:</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Felhasználónév"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Jelszó:</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Jelszó" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Bejelentkezés</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a href="register.html" class="text-decoration-none">Regisztráció</a>
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="adologin.html" class="text-decoration-none">Időpontadó bejelentkezés
+                        </a>
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="vizsga.html" class="text-decoration-none">Vizsga linkek</a>
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Jelszó:</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Jelszó" required>
+            <div class="col-md-6">
+                <div class="info-card">
+                    <h2 class="text-center mb-4">Üdvözöljük a MyBooking rendszerben!</h2>
+                    <p class="lead text-center mb-4">
+                        A MyBooking egy egyszerű és hatékony időpontfoglaló rendszer, amely megkönnyíti az időpontok kezelését.
+                    </p>
+                    
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#007bff" class="bi bi-calendar-check" viewBox="0 0 16 16">
+                                <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h5>Egyszerű időpontfoglalás</h5>
+                            <p>Válassza ki a kívánt időpontot és szolgáltatást néhány kattintással.</p>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#007bff" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h5>Rugalmas módosítás</h5>
+                            <p>Könnyen módosíthatja vagy lemondhatja foglalásait, amikor csak szükséges.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 text-center">
+                        <p>Még nincs fiókja? <a href="register.html" class="text-decoration-none fw-bold">Regisztráljon most</a> és kezdje el használni a MyBooking szolgáltatásait!</p>
+                    </div>
+                </div>
             </div>
-            <div class="d-grid">
-                <button type="submit" class="btn btn-primary">Bejelentkezés</button>
-            </div>
-        </form>
-        <div class="text-center mt-3">
-            <a href="register.html" class="text-decoration-none">Nincs még fiókod? Kattints ide a regisztrációhoz.</a>
         </div>
-        <div class="text-center mt-3">
-            <a href="adologin.html" class="text-decoration-none">Időpontadó bejelentkezés.</a>
-        </div>
-        <div class="text-center mt-3">
-            <a href="vizsga.html" class="text-decoration-none">Vizsga linkek</a>
-        </div>
-
     </div>
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
